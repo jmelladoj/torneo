@@ -35,7 +35,7 @@ Route::post('/categoria/borrar', 'CategoriaController@borrar')->name('Borrar cat
 
 //Rutas de atletas
 Route::get('/atletas/categoria/{id}', 'AtletaController@index_categoria')->name('Listar atletas por categoria');
-Route::post('/atletas/agregar', 'AtletaController@agregar')->name('Agregar atleta');
+Route::post('/atletas/admin/agregar', 'AtletaController@agregar_admin')->name('Agregar atleta');
 //Route::post('/categoria/borrar', 'AtletaController@borrar')->name('Borrar categoria');
 
 

@@ -39,8 +39,8 @@ class CategoriasTableSeeder extends Seeder
             'valor' => 35000,
             'cupos' => 24,
             'categoria' => 1,
-            'limitancia_edad' => 35,
-            'edad_minima' => 40
+            'limitancia_edad' => 1,
+            'edad_minima' => 35
         ]);
 
         Categoria::create([
@@ -74,7 +74,7 @@ class CategoriasTableSeeder extends Seeder
         ]);
 
         Categoria::create([
-            'nombre' => '30+ MUJERES',
+            'nombre' => '35+ MUJERES',
             'valor' => 35000,
             'cupos' => 12,
             'categoria' => 1,

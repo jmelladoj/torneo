@@ -53,7 +53,7 @@
                         <li>
                             <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Indivual</span></a>
                             <ul aria-expanded="false" class="collapse-in">
-                                <li v-for="categoria in duplas" :key="categoria.id">
+                                <li @click="actualizar_datos" v-for="categoria in duplas" :key="categoria.id">
                                     <router-link
                                         :to="{ path: '/atletas/' + categoria.id}"
                                         v-text="categoria.nombre">
@@ -64,7 +64,7 @@
                         <li>
                             <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Tríos</span></a>
                             <ul aria-expanded="false" class="collapse-in">
-                                <li v-for="categoria in trios" :key="categoria.id">
+                                <li @click="actualizar_datos" v-for="categoria in trios" :key="categoria.id">
                                     <router-link
                                         :to="{ path: '/atletas/' + categoria.id}"
                                         v-text="categoria.nombre">
