@@ -25,3 +25,26 @@ mix.scripts([
    'public/assets/node_modules/raphael/raphael-min.js',
    'public/assets/node_modules/jquery-sparkline/jquery.sparkline.min.js'
 ], 'public/js/intranet.js').version();
+
+
+mix.styles([
+    'public/pagina/lib/bootstrap/css/bootstrap.min.css',
+    'public/pagina/lib/font-awesome/css/font-awesome.min.css',
+    'public/pagina/lib/animate/animate.min.css',
+    'public/pagina/lib/venobox/venobox.css',
+    'public/pagina/lib/owlcarousel/assets/owl.carousel.min.css',
+    'public/pagina/css/style.css',
+ ], 'public/css/pagina.css')
+ .scripts([
+    'public/pagina/lib/jquery/jquery-migrate.min.js',
+    'public/pagina/lib/bootstrap/js/bootstrap.bundle.min.js',
+    'public/pagina/lib/easing/easing.min.js',
+    'public/pagina/lib/superfish/hoverIntent.js',
+    'public/pagina/lib/superfish/superfish.min.js',
+    'public/pagina/lib/wow/wow.min.js',
+    'public/pagina/lib/venobox/venobox.min.js',
+    'public/pagina/lib/owlcarousel/owl.carousel.min.js',
+    'public/pagina/contactform/contactform.js',
+    'public/pagina/js/main.js'
+ ], 'public/js/pagina.js').version();
+

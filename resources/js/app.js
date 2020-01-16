@@ -8,6 +8,7 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 window.swal = require('sweetalert2');
+window.Event = new Vue ();
 
 //Componentes
 import Vuelidate from 'vuelidate'
@@ -60,6 +61,7 @@ Vue.component('titulo-pagina', require('./components/general/titulo.vue').defaul
 
 //Pagina
 Vue.component('iniciar-sesion', require('./components/login.vue').default);
+Vue.component('categorias-inscripcion', require('./components/pagina/categorias.vue').default);
 
 //Intranet
 Vue.component('home', require('./components/home.vue').default);
@@ -68,6 +70,7 @@ Vue.component('home', require('./components/home.vue').default);
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+var EventBus = new Vue;
 
 const app = new Vue({
     el: '#app',

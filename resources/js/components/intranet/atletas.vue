@@ -311,6 +311,14 @@
                 this.totalRows = filteredItems.length
                 this.currentPage = 1
             },
+            obtener_registros(){
+                this.$nextTick(() => {
+                    this.listar_categoria()
+                    this.listar_atletas()
+                    this.listar_tallas()
+                })
+
+            },
             listar_tallas(){
                 let me = this
 
@@ -422,9 +430,9 @@
             }
         },
         mounted() {
-            this.listar_categoria()
-            this.listar_atletas()
-            this.listar_tallas()
+            Event.$on('refrescar', (id) => {
+                this.obtener_registros()
+            })
         }
     }
 </script>

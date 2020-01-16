@@ -42,7 +42,7 @@
                         <li v-if="individuales.length > 0">
                             <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Indivual</span></a>
                             <ul aria-expanded="false" class="collapse-in">
-                                <li v-for="categoria in individuales" :key="categoria.id">
+                                <li @click="actualizar_datos" v-for="categoria in individuales" :key="categoria.id">
                                     <router-link
                                         :to="{ path: '/atletas/' + categoria.id}"
                                         v-text="categoria.nombre">
@@ -111,6 +111,9 @@
         methods: {
             ...mapActions('usuario', ['salir']),
             ...mapMutations('usuario', ['actualizar']),
+            actualizar_datos(){
+                Event.$emit('refrescar');
+            },
             listar_categorias(){
                 let me = this
 
