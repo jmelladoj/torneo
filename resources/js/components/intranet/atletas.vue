@@ -13,7 +13,20 @@
                                         <h6 class="text-muted"><b>Inscritos</b></h6>
                                     </div>
                                     <div class="ml-auto">
-                                        <h4 class="counter text-primary">0</h4>
+                                        <h4 class="counter text-primary">{{ inscritos }}</h4>
+                                    </div>
+                                </div>
+                            </b-col>
+                    </b-card>
+                    <b-card class="mt-0 mb-0">
+                            <b-col cols="12">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h4><i class="fa fa-users"></i></h4>
+                                        <h6 class="text-muted"><b>Aprobados</b></h6>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <h4 class="counter text-primary">{{ aprobados }}</h4>
                                     </div>
                                 </div>
                             </b-col>
@@ -26,7 +39,20 @@
                                         <h6 class="text-muted"><b>Pendientes</b></h6>
                                     </div>
                                     <div class="ml-auto">
-                                        <h4 class="counter text-primary">0</h4>
+                                        <h4 class="counter text-primary">{{ pendientes }} </h4>
+                                    </div>
+                                </div>
+                            </b-col>
+                    </b-card>
+                    <b-card class="mt-0 mb-0">
+                            <b-col cols="12">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h4><i class="fa fa-users"></i></h4>
+                                        <h6 class="text-muted"><b>Invitados</b></h6>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <h4 class="counter text-primary">{{ invitados }} </h4>
                                     </div>
                                 </div>
                             </b-col>
@@ -84,6 +110,11 @@
 
                         <template v-slot:cell(index)="data">
                             {{ data.index + 1 }}
+                        </template>
+
+                        <template v-slot:cell(encargado)="data">
+                            <label v-if="data.item.encargado == 1">SÍ</label>
+                            <label v-else>NO</label>
                         </template>
 
                         <template v-slot:cell(acciones)="row">
@@ -153,6 +184,19 @@
                             ></b-form-input>
 
                             <b-form-invalid-feedback id="atleta-box">
+                                Campo de texto, mínimo de 1 caracter.
+                            </b-form-invalid-feedback>
+                        </b-form-group>
+                    </b-col>
+                    <b-col xs="12" sm="12" md="6" v-show="categoria.categoria > 1">
+                        <b-form-group label="Nombre de equipo">
+                            <b-form-input
+                                v-model="$v.registro_atleta.nombre_equipo.$model"
+                                :state="$v.registro_atleta.nombre_equipo.$dirty ? !$v.registro_atleta.nombre_equipo.$error : null"
+                                aria-describedby="atleta-nombre-equipo"
+                            ></b-form-input>
+
+                            <b-form-invalid-feedback id="atleta-nombre-equipo">
                                 Campo de texto, mínimo de 1 caracter.
                             </b-form-invalid-feedback>
                         </b-form-group>
@@ -249,6 +293,7 @@
             return {
                 categoria_seleccionada: null,
                 registro_atleta: {
+                    nombre_equipo: '',
                     tipo_pago: 0,
                     atletas: [],
                     box: '',
@@ -285,7 +330,13 @@
             registro_atleta: {
                 box:{
                     required: requiredIf(function () {
-                        return this.registro_atleta.box.length > 0 ? true : false
+                        return this.categoria.categoria == 1 ? true : false
+                    }),
+                    minLength: minLength(1)
+                },
+                nombre_equipo:{
+                    required: requiredIf(function () {
+                        return this.categoria.categoria > 1 ? true : false
                     }),
                     minLength: minLength(1)
                 },
@@ -328,6 +379,18 @@
             },
             nombre_categoria() {
                 return 'Atletas en ' + this.categoria.nombre
+            },
+            inscritos() {
+                return this.items.length
+            },
+            aprobados() {
+                return this.items.filter(i => i.pago == 1).length
+            },
+            pendientes() {
+                return this.items.filter(i => i.pago == 0).length
+            },
+            invitados() {
+                return this.items.filter(i => i.invitado == 1).length
             }
         },
         methods: {
@@ -343,11 +406,12 @@
                     this.listar_atletas()
                     this.listar_tallas()
                     this.limpiar_datos_registro()
-                    this.cargar_campos_tabla()
                 })
             },
             cargar_campos_tabla(){
                 let me = this
+
+                me.fields = []
 
                 if(this.categoria.categoria < 2){
                     if(this.categoria.limitancia_edad == 1){
@@ -444,6 +508,7 @@
                 }
             },
             limpiar_datos_registro() {
+                this.registro_atleta.nombre_equipo = ''
                 this.registro_atleta.blox = ''
                 this.registro_atleta.email = ''
                 this.registro_atleta.atletas = []
@@ -461,9 +526,10 @@
 
                 axios.post('/atletas/admin/agregar',{
                     'categoria_id': me.categoria.id,
+                    'nombre_equipo': me.registro_atleta.nombre_equipo,
                     'atletas': me.registro_atleta.atletas,
                     'box': me.registro_atleta.box,
-                    'email': me.registro_atleta.box,
+                    'email': me.registro_atleta.email,
                     'tipo_pago': me.registro_atleta.tipo_pago
                 }).then(function (response) {
                     me.listar_atletas()
@@ -474,11 +540,12 @@
             }
         },
         mounted() {
-            this.cargar_campos_tabla()
             this.obtener_registros()
+            this.cargar_campos_tabla()
 
             Event.$on('refrescar', (id) => {
                 this.obtener_registros()
+                this.cargar_campos_tabla()
             })
         }
     }

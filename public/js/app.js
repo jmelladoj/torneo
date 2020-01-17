@@ -2381,6 +2381,50 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2389,6 +2433,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       categoria_seleccionada: null,
       registro_atleta: {
+        nombre_equipo: '',
         tipo_pago: 0,
         atletas: [],
         box: '',
@@ -2435,7 +2480,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     registro_atleta: {
       box: {
         required: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["requiredIf"])(function () {
-          return this.registro_atleta.box.length > 0 ? true : false;
+          return this.categoria.categoria == 1 ? true : false;
+        }),
+        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["minLength"])(1)
+      },
+      nombre_equipo: {
+        required: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["requiredIf"])(function () {
+          return this.categoria.categoria > 1 ? true : false;
         }),
         minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["minLength"])(1)
       },
@@ -2483,6 +2534,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     nombre_categoria: function nombre_categoria() {
       return 'Atletas en ' + this.categoria.nombre;
+    },
+    inscritos: function inscritos() {
+      return this.items.length;
+    },
+    aprobados: function aprobados() {
+      return this.items.filter(function (i) {
+        return i.pago == 1;
+      }).length;
+    },
+    pendientes: function pendientes() {
+      return this.items.filter(function (i) {
+        return i.pago == 0;
+      }).length;
+    },
+    invitados: function invitados() {
+      return this.items.filter(function (i) {
+        return i.invitado == 1;
+      }).length;
     }
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapMutations"])(['msg_success', 'msg_error']), {
@@ -2502,12 +2571,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this.listar_tallas();
 
         _this.limpiar_datos_registro();
-
-        _this.cargar_campos_tabla();
       });
     },
     cargar_campos_tabla: function cargar_campos_tabla() {
       var me = this;
+      me.fields = [];
 
       if (this.categoria.categoria < 2) {
         if (this.categoria.limitancia_edad == 1) {
@@ -2683,6 +2751,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     limpiar_datos_registro: function limpiar_datos_registro() {
+      this.registro_atleta.nombre_equipo = '';
       this.registro_atleta.blox = '';
       this.registro_atleta.email = '';
       this.registro_atleta.atletas = [];
@@ -2698,9 +2767,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var me = this;
       axios.post('/atletas/admin/agregar', {
         'categoria_id': me.categoria.id,
+        'nombre_equipo': me.registro_atleta.nombre_equipo,
         'atletas': me.registro_atleta.atletas,
         'box': me.registro_atleta.box,
-        'email': me.registro_atleta.box,
+        'email': me.registro_atleta.email,
         'tipo_pago': me.registro_atleta.tipo_pago
       }).then(function (response) {
         me.listar_atletas();
@@ -2713,10 +2783,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   mounted: function mounted() {
     var _this2 = this;
 
-    this.cargar_campos_tabla();
     this.obtener_registros();
+    this.cargar_campos_tabla();
     Event.$on('refrescar', function (id) {
       _this2.obtener_registros();
+
+      _this2.cargar_campos_tabla();
     });
   }
 });
@@ -77878,7 +77950,40 @@ var render = function() {
                               _c(
                                 "h4",
                                 { staticClass: "counter text-primary" },
-                                [_vm._v("0")]
+                                [_vm._v(_vm._s(_vm.inscritos))]
+                              )
+                            ])
+                          ]
+                        )
+                      ])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-card",
+                    { staticClass: "mt-0 mb-0" },
+                    [
+                      _c("b-col", { attrs: { cols: "12" } }, [
+                        _c(
+                          "div",
+                          { staticClass: "d-flex no-block align-items-center" },
+                          [
+                            _c("div", [
+                              _c("h4", [
+                                _c("i", { staticClass: "fa fa-users" })
+                              ]),
+                              _vm._v(" "),
+                              _c("h6", { staticClass: "text-muted" }, [
+                                _c("b", [_vm._v("Aprobados")])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "ml-auto" }, [
+                              _c(
+                                "h4",
+                                { staticClass: "counter text-primary" },
+                                [_vm._v(_vm._s(_vm.aprobados))]
                               )
                             ])
                           ]
@@ -77911,7 +78016,40 @@ var render = function() {
                               _c(
                                 "h4",
                                 { staticClass: "counter text-primary" },
-                                [_vm._v("0")]
+                                [_vm._v(_vm._s(_vm.pendientes) + " ")]
+                              )
+                            ])
+                          ]
+                        )
+                      ])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-card",
+                    { staticClass: "mt-0 mb-0" },
+                    [
+                      _c("b-col", { attrs: { cols: "12" } }, [
+                        _c(
+                          "div",
+                          { staticClass: "d-flex no-block align-items-center" },
+                          [
+                            _c("div", [
+                              _c("h4", [
+                                _c("i", { staticClass: "fa fa-users" })
+                              ]),
+                              _vm._v(" "),
+                              _c("h6", { staticClass: "text-muted" }, [
+                                _c("b", [_vm._v("Invitados")])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "ml-auto" }, [
+                              _c(
+                                "h4",
+                                { staticClass: "counter text-primary" },
+                                [_vm._v(_vm._s(_vm.invitados) + " ")]
                               )
                             ])
                           ]
@@ -78218,6 +78356,16 @@ var render = function() {
                         }
                       },
                       {
+                        key: "cell(encargado)",
+                        fn: function(data) {
+                          return [
+                            data.item.encargado == 1
+                              ? _c("label", [_vm._v("SÍ")])
+                              : _c("label", [_vm._v("NO")])
+                          ]
+                        }
+                      },
+                      {
                         key: "cell(acciones)",
                         fn: function(row) {
                           return [
@@ -78450,6 +78598,62 @@ var render = function() {
                           _c(
                             "b-form-invalid-feedback",
                             { attrs: { id: "atleta-box" } },
+                            [
+                              _vm._v(
+                                "\n                            Campo de texto, mínimo de 1 caracter.\n                        "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.categoria.categoria > 1,
+                          expression: "categoria.categoria > 1"
+                        }
+                      ],
+                      attrs: { xs: "12", sm: "12", md: "6" }
+                    },
+                    [
+                      _c(
+                        "b-form-group",
+                        { attrs: { label: "Nombre de equipo" } },
+                        [
+                          _c("b-form-input", {
+                            attrs: {
+                              state: _vm.$v.registro_atleta.nombre_equipo.$dirty
+                                ? !_vm.$v.registro_atleta.nombre_equipo.$error
+                                : null,
+                              "aria-describedby": "atleta-nombre-equipo"
+                            },
+                            model: {
+                              value:
+                                _vm.$v.registro_atleta.nombre_equipo.$model,
+                              callback: function($$v) {
+                                _vm.$set(
+                                  _vm.$v.registro_atleta.nombre_equipo,
+                                  "$model",
+                                  $$v
+                                )
+                              },
+                              expression:
+                                "$v.registro_atleta.nombre_equipo.$model"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "b-form-invalid-feedback",
+                            { attrs: { id: "atleta-nombre-equipo" } },
                             [
                               _vm._v(
                                 "\n                            Campo de texto, mínimo de 1 caracter.\n                        "
