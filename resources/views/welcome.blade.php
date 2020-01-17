@@ -12,6 +12,7 @@
                 <li class="menu-active"><a href="#intro">INICIO</a></li>
                 <li><a href="#about">INSCRÍBETE</a></li>
                 <li><a href="#schedule">CONTACTO</a></li>
+                <li><a href="https://www.instagram.com/torneoarena/?hl=es-la" target="_blank" class="padding-instagram"><i class="fa fa-instagram fa-2x"></i></a></li>
                 <li class="buy-tickets"><a href="#buy-tickets">BASES</a></li>
                 </ul>
             </nav>
@@ -32,7 +33,7 @@
         <div class="container">
           <div class="section-header">
             <h2>Galería</h2>
-            <p>Revive algunos momento de lo que fue Torneo Arena 2019</p>
+            <p>Revive algunos momento de lo que fue Arena 2019</p>
           </div>
         </div>
 

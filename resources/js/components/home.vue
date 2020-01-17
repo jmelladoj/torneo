@@ -3,7 +3,7 @@
         <header class="topbar">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="javascript:void(0)">
+                    <a class="navbar-brand" href="/">
                         <b>
                             <img src="assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
                             <img src="assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
@@ -38,6 +38,7 @@
                         <li class="nav-small-cap">--- MENÚ</li>
                         <li><router-link class="waves-effect waves-dark" to="/tallas"><i class="fa fa-product-hunt"></i> <span class="hide-menu">Tallas de poleras</span></router-link></li>
                         <li><router-link class="waves-effect waves-dark" to="/categorias"><i class="fa fa fa-bars"></i><span class="hide-menu">Categorías</span></router-link> </li>
+                        <li><router-link class="waves-effect waves-dark" to="/ventas"><i class="fa fa fa-usd"></i><span class="hide-menu">Ventas</span></router-link> </li>
 
                         <li v-if="individuales.length > 0">
                             <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Indivual</span></a>

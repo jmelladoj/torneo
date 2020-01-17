@@ -30,7 +30,7 @@ class CategoriasTableSeeder extends Seeder
         Categoria::create([
             'nombre' => 'DUPLAS BÁSICO HOMBRES',
             'valor' => 70000,
-            'cupos' => 24,
+            'cupos' => 48,
             'categoria' => 2
         ]);
 
@@ -69,7 +69,7 @@ class CategoriasTableSeeder extends Seeder
         Categoria::create([
             'nombre' => 'DUPLAS BÁSICO MUJERES',
             'valor' => 70000,
-            'cupos' => 24,
+            'cupos' => 48,
             'categoria' => 2
         ]);
 
@@ -85,7 +85,7 @@ class CategoriasTableSeeder extends Seeder
         Categoria::create([
             'nombre' => 'SCALED TRÍOS',
             'valor' => 105000,
-            'cupos' => 12,
+            'cupos' => 36,
             'categoria' => 3
         ]);
     }

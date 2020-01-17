@@ -7,6 +7,7 @@ Vue.use(VueRouter)
 import Tallas from './components/intranet/tallas.vue'
 import Categorias from './components/intranet/categorias.vue'
 import Atletas from './components/intranet/atletas.vue'
+import Ventas from './components/intranet/ventas.vue'
 
 export default new VueRouter({
     routes: [
@@ -25,6 +26,11 @@ export default new VueRouter({
             name: 'atletas',
             component: Atletas,
             props: true
+        },
+        {
+            path: '/ventas',
+            name: 'ventas',
+            component: Ventas
         },
     ],
     mode: 'history'

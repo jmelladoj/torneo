@@ -175,8 +175,8 @@
                             </b-form-invalid-feedback>
                         </b-form-group>
                     </b-col>
-                    <b-col xs="12" sm="12" md="6" v-show="categoria.categoria == 1">
-                        <b-form-group label="Box de crossfit">
+                    <b-col xs="12" sm="12" md="6">
+                        <b-form-group label="Box">
                             <b-form-input
                                 v-model="$v.registro_atleta.box.$model"
                                 :state="$v.registro_atleta.box.$dirty ? !$v.registro_atleta.box.$error : null"
@@ -330,7 +330,7 @@
             registro_atleta: {
                 box:{
                     required: requiredIf(function () {
-                        return this.categoria.categoria == 1 ? true : false
+                        return this.registro_atleta.box.length > 0 ? true : false
                     }),
                     minLength: minLength(1)
                 },

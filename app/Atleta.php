@@ -13,6 +13,7 @@ class Atleta extends Model
     public function getNombreCategoriaAttribute(){
         return $this->categoria_id != null ? $this->categoria->nombre : 'SIN CATEGORÍA';
     }
+    
     public function categoria(){
         return $this->belongsTo(Categoria::class, 'categoria_id');
     }

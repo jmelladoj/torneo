@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Atleta;
 use App\Categoria;
+use App\Mail\Transferencia;
+use App\Venta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class AtletaController extends Controller
 {
@@ -17,10 +20,11 @@ class AtletaController extends Controller
     public function agregar_admin(Request $request){
         DB::transaction(function () use ($request) {
             $categoria = Categoria::find($request->categoria_id);
+            $id = 0;
 
             for($i = 0; $i < count($request->atletas); $i++){
                 if($categoria->categoria < 2){
-                    Atleta::create(
+                    $atleta = Atleta::create(
                         [
                             'run' => $request->atletas[$i]['run'],
                             'nombre' => $request->atletas[$i]['nombre'],
@@ -33,8 +37,10 @@ class AtletaController extends Controller
                             'invitado' =>  $request->tipo_pago
                         ]
                     );
+
+                    $id = $atleta->id;
                 } else {
-                    Atleta::create(
+                    $atleta = Atleta::create(
                         [
                             'run' => $request->atletas[$i]['run'],
                             'nombre' => $request->atletas[$i]['nombre'],
@@ -46,7 +52,22 @@ class AtletaController extends Controller
                             'invitado' =>  $request->tipo_pago
                         ]
                     );
+
+                    if($i == 0){
+                        $id = $atleta->id;
+                    }
                 }
+            }
+
+            $atleta = Atleta::find($id);
+
+            Venta::create([
+                'atleta_id' => $atleta->id,
+                'monto_pago' => $categoria->valor,
+            ]);
+
+            if($request->tipo_pago == 0){
+                Mail::to($atleta->correo)->send(new Transferencia($atleta));
             }
         });
     }

@@ -2055,6 +2055,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2480,7 +2481,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     registro_atleta: {
       box: {
         required: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["requiredIf"])(function () {
-          return this.categoria.categoria == 1 ? true : false;
+          return this.registro_atleta.box.length > 0 ? true : false;
         }),
         minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["minLength"])(1)
       },
@@ -3036,7 +3037,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3066,6 +3066,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, {
         key: 'cupos',
         label: 'Cupos',
+        sortable: true,
+        "class": 'text-left'
+      }, {
+        key: 'cupos',
+        label: 'Total',
         sortable: true,
         "class": 'text-left'
       }, {
@@ -3413,6 +3418,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         sortable: true,
         "class": 'text-left'
       }, {
+        key: 'cantidad_poleras',
+        label: 'Cantidad poleras',
+        sortable: true,
+        "class": 'text-left'
+      }, {
         key: 'acciones',
         label: 'Acciones',
         "class": 'text-center'
@@ -3545,6 +3555,267 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   }),
   mounted: function mounted() {
     this.listar_poleras();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/intranet/ventas.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/intranet/ventas.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      items: [],
+      fields: [{
+        key: 'id',
+        label: '#',
+        sortable: true,
+        "class": 'text-center'
+      }, {
+        key: 'nombre_atleta',
+        label: 'Nombre',
+        sortable: true,
+        "class": 'text-left'
+      }, {
+        key: 'run_atleta',
+        label: 'Run',
+        sortable: true,
+        "class": 'text-left'
+      }, {
+        key: 'correo_atleta',
+        label: 'Correo',
+        sortable: true,
+        "class": 'text-left'
+      }, {
+        key: 'categoria_atleta',
+        label: 'Categoría',
+        sortable: true,
+        "class": 'text-left'
+      }, {
+        key: 'monto_pago',
+        label: 'Valor',
+        sortable: true,
+        "class": 'text-left'
+      }, {
+        key: 'estado',
+        label: 'Estado',
+        sortable: true,
+        "class": 'text-left'
+      }, {
+        key: 'acciones',
+        label: 'Acciones',
+        "class": 'text-center'
+      }],
+      totalRows: 1,
+      currentPage: 1,
+      perPage: 15,
+      pageOptions: [15, 50, 100, 150, 200, 150],
+      sortBy: '',
+      sortDesc: false,
+      filter: null
+    };
+  },
+  computed: {
+    sortOptions: function sortOptions() {
+      return this.fields.filter(function (f) {
+        return f.sortable;
+      }).map(function (f) {
+        return {
+          text: f.label,
+          value: f.key
+        };
+      });
+    }
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])(['msg_success', 'msg_error']), _defineProperty({
+    onFiltered: function onFiltered(filteredItems) {
+      this.totalRows = filteredItems.length;
+      this.currentPage = 1;
+    },
+    listar_ventas: function listar_ventas() {
+      var me = this;
+      axios.get('/ventas/torneo').then(function (response) {
+        me.items = response.data.ventas;
+        me.totalRows = me.items.length;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    confirmar: function confirmar(id) {
+      var _this = this;
+
+      swal.fire({
+        title: '¿Deseas confirmar la venta?',
+        text: "¡No podrás revertir esto!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, ¡confirmar!'
+      }).then(function (result) {
+        if (result.value) {
+          var me = _this;
+          axios.post('/venta/confirmar', {
+            'id': id
+          }).then(function (response) {
+            me.listar_categorias();
+            me.$store.commit('msg_success', 'Venta confirmada exitosamente.');
+          })["catch"](function (error) {
+            console.log(error);
+          });
+        }
+      });
+    },
+    borrar: function borrar(id, accion) {
+      var _this2 = this;
+
+      swal.fire({
+        title: accion == 1 ? '¿Deseas eliminar la inscripción notificando al atleta?' : '¿Deseas eliminar la inscripción sin notificar al atleta?',
+        text: "¡No podrás revertir esto!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, ¡borrar!'
+      }).then(function (result) {
+        if (result.value) {
+          var me = _this2;
+          axios.post('/venta/confirmar', {
+            'id': id
+          }).then(function (response) {
+            me.listar_categorias();
+            me.$store.commit('msg_success', 'Venta eliminada exitosamente.');
+          })["catch"](function (error) {
+            console.log(error);
+          });
+        }
+      });
+    }
+  }, "confirmar", function confirmar(id) {
+    var _this3 = this;
+
+    swal.fire({
+      title: '¿Deseas marcar como pendiente la venta?',
+      text: "¡No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, ¡marcar!'
+    }).then(function (result) {
+      if (result.value) {
+        var me = _this3;
+        axios.post('/venta/confirmar', {
+          'id': id
+        }).then(function (response) {
+          me.listar_categorias();
+          me.$store.commit('msg_success', 'Venta marcada como pendiente exitosamente.');
+        })["catch"](function (error) {
+          console.log(error);
+        });
+      }
+    });
+  })),
+  mounted: function mounted() {
+    this.listar_ventas();
   }
 });
 
@@ -77649,6 +77920,26 @@ var render = function() {
                   1
                 ),
                 _vm._v(" "),
+                _c(
+                  "li",
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "waves-effect waves-dark",
+                        attrs: { to: "/ventas" }
+                      },
+                      [
+                        _c("i", { staticClass: "fa fa fa-usd" }),
+                        _c("span", { staticClass: "hide-menu" }, [
+                          _vm._v("Ventas")
+                        ])
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
                 _vm.individuales.length > 0
                   ? _c("li", [
                       _vm._m(3),
@@ -77761,41 +78052,31 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "navbar-header" }, [
-      _c(
-        "a",
-        { staticClass: "navbar-brand", attrs: { href: "javascript:void(0)" } },
-        [
-          _c("b", [
-            _c("img", {
-              staticClass: "dark-logo",
-              attrs: { src: "assets/images/logo-icon.png", alt: "homepage" }
-            }),
-            _vm._v(" "),
-            _c("img", {
-              staticClass: "light-logo",
-              attrs: {
-                src: "assets/images/logo-light-icon.png",
-                alt: "homepage"
-              }
-            })
-          ]),
+      _c("a", { staticClass: "navbar-brand", attrs: { href: "/" } }, [
+        _c("b", [
+          _c("img", {
+            staticClass: "dark-logo",
+            attrs: { src: "assets/images/logo-icon.png", alt: "homepage" }
+          }),
           _vm._v(" "),
-          _c("span", [
-            _c("img", {
-              staticClass: "dark-logo",
-              attrs: { src: "assets/images/logo-text.png", alt: "homepage" }
-            }),
-            _vm._v(" "),
-            _c("img", {
-              staticClass: "light-logo",
-              attrs: {
-                src: "assets/images/logo-light-text.png",
-                alt: "homepage"
-              }
-            })
-          ])
-        ]
-      )
+          _c("img", {
+            staticClass: "light-logo",
+            attrs: { src: "assets/images/logo-light-icon.png", alt: "homepage" }
+          })
+        ]),
+        _vm._v(" "),
+        _c("span", [
+          _c("img", {
+            staticClass: "dark-logo",
+            attrs: { src: "assets/images/logo-text.png", alt: "homepage" }
+          }),
+          _vm._v(" "),
+          _c("img", {
+            staticClass: "light-logo",
+            attrs: { src: "assets/images/logo-light-text.png", alt: "homepage" }
+          })
+        ])
+      ])
     ])
   },
   function() {
@@ -78559,21 +78840,11 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "b-col",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.categoria.categoria == 1,
-                          expression: "categoria.categoria == 1"
-                        }
-                      ],
-                      attrs: { xs: "12", sm: "12", md: "6" }
-                    },
+                    { attrs: { xs: "12", sm: "12", md: "6" } },
                     [
                       _c(
                         "b-form-group",
-                        { attrs: { label: "Box de crossfit" } },
+                        { attrs: { label: "Box" } },
                         [
                           _c("b-form-input", {
                             attrs: {
@@ -80371,6 +80642,436 @@ var render = function() {
               on: { click: _vm.abrir_modal_polera }
             },
             [_c("i", { staticClass: "ti-plus" })]
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/intranet/ventas.vue?vue&type=template&id=c8665388&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/intranet/ventas.vue?vue&type=template&id=c8665388& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("titulo-pagina", { attrs: { titulo: "Ventas" } }),
+      _vm._v(" "),
+      _c(
+        "b-row",
+        [
+          _c(
+            "b-col",
+            [
+              _c(
+                "b-card",
+                [
+                  _c(
+                    "b-row",
+                    [
+                      _c(
+                        "b-col",
+                        { staticClass: "my-1", attrs: { lg: "6" } },
+                        [
+                          _c(
+                            "b-form-group",
+                            {
+                              staticClass: "mb-0",
+                              attrs: {
+                                label: "Búsqueda",
+                                "label-cols-sm": "2",
+                                "label-align-sm": "left",
+                                "label-size": "sm",
+                                "label-for": "filterInput"
+                              }
+                            },
+                            [
+                              _c(
+                                "b-input-group",
+                                { attrs: { size: "sm" } },
+                                [
+                                  _c("b-form-input", {
+                                    attrs: {
+                                      type: "search",
+                                      id: "filterInput",
+                                      placeholder: "Escribe para buscar"
+                                    },
+                                    model: {
+                                      value: _vm.filter,
+                                      callback: function($$v) {
+                                        _vm.filter = $$v
+                                      },
+                                      expression: "filter"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-input-group-append",
+                                    [
+                                      _c(
+                                        "b-button",
+                                        {
+                                          attrs: { disabled: !_vm.filter },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.filter = ""
+                                            }
+                                          }
+                                        },
+                                        [_vm._v("Limpiar")]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        { staticClass: "my-1", attrs: { lg: "6" } },
+                        [
+                          _c(
+                            "b-form-group",
+                            {
+                              staticClass: "mb-0",
+                              attrs: {
+                                label: "Ordenar",
+                                "label-cols-sm": "2",
+                                "label-align-sm": "left",
+                                "label-size": "sm",
+                                "label-for": "sortBySelect"
+                              }
+                            },
+                            [
+                              _c(
+                                "b-input-group",
+                                { attrs: { size: "sm" } },
+                                [
+                                  _c("b-form-select", {
+                                    staticClass: "w-75",
+                                    attrs: {
+                                      id: "sortBySelect",
+                                      options: _vm.sortOptions
+                                    },
+                                    scopedSlots: _vm._u([
+                                      {
+                                        key: "first",
+                                        fn: function() {
+                                          return [
+                                            _c(
+                                              "option",
+                                              { attrs: { value: "" } },
+                                              [_vm._v("Sin ordenar")]
+                                            )
+                                          ]
+                                        },
+                                        proxy: true
+                                      }
+                                    ]),
+                                    model: {
+                                      value: _vm.sortBy,
+                                      callback: function($$v) {
+                                        _vm.sortBy = $$v
+                                      },
+                                      expression: "sortBy"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-form-select",
+                                    {
+                                      staticClass: "w-25",
+                                      attrs: {
+                                        size: "sm",
+                                        disabled: !_vm.sortBy
+                                      },
+                                      model: {
+                                        value: _vm.sortDesc,
+                                        callback: function($$v) {
+                                          _vm.sortDesc = $$v
+                                        },
+                                        expression: "sortDesc"
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "option",
+                                        { domProps: { value: false } },
+                                        [_vm._v("Asc")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { domProps: { value: true } },
+                                        [_vm._v("Desc")]
+                                      )
+                                    ]
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        { staticClass: "my-1", attrs: { lg: "6" } },
+                        [
+                          _c(
+                            "b-form-group",
+                            {
+                              staticClass: "mb-0",
+                              attrs: {
+                                label: "Por página",
+                                "label-cols-sm": "2",
+                                "label-align-sm": "left",
+                                "label-size": "sm",
+                                "label-for": "perPageSelect"
+                              }
+                            },
+                            [
+                              _c("b-form-select", {
+                                attrs: {
+                                  id: "perPageSelect",
+                                  size: "sm",
+                                  options: _vm.pageOptions
+                                },
+                                model: {
+                                  value: _vm.perPage,
+                                  callback: function($$v) {
+                                    _vm.perPage = $$v
+                                  },
+                                  expression: "perPage"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        { staticClass: "my-1", attrs: { lg: "6" } },
+                        [
+                          _c("b-pagination", {
+                            staticClass: "my-0",
+                            attrs: {
+                              "total-rows": _vm.totalRows,
+                              "per-page": _vm.perPage,
+                              align: "fill",
+                              size: "sm"
+                            },
+                            model: {
+                              value: _vm.currentPage,
+                              callback: function($$v) {
+                                _vm.currentPage = $$v
+                              },
+                              expression: "currentPage"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("b-table", {
+                    staticClass: "my-3",
+                    attrs: {
+                      "show-empty": "",
+                      small: "",
+                      striped: "",
+                      outlined: "",
+                      stacked: "sm",
+                      items: _vm.items,
+                      fields: _vm.fields,
+                      "current-page": _vm.currentPage,
+                      "per-page": _vm.perPage,
+                      filter: _vm.filter,
+                      "sort-by": _vm.sortBy,
+                      "sort-desc": _vm.sortDesc
+                    },
+                    on: {
+                      "update:sortBy": function($event) {
+                        _vm.sortBy = $event
+                      },
+                      "update:sort-by": function($event) {
+                        _vm.sortBy = $event
+                      },
+                      "update:sortDesc": function($event) {
+                        _vm.sortDesc = $event
+                      },
+                      "update:sort-desc": function($event) {
+                        _vm.sortDesc = $event
+                      },
+                      filtered: _vm.onFiltered
+                    },
+                    scopedSlots: _vm._u([
+                      {
+                        key: "empty",
+                        fn: function() {
+                          return [
+                            _c("center", [
+                              _c("h5", [_vm._v("No hay registros")])
+                            ])
+                          ]
+                        },
+                        proxy: true
+                      },
+                      {
+                        key: "cell(monto_pago)",
+                        fn: function(data) {
+                          return [
+                            _vm._v(
+                              "\n                        " +
+                                _vm._s(
+                                  _vm._f("currency")(data.item.monto_pago)
+                                ) +
+                                "\n                    "
+                            )
+                          ]
+                        }
+                      },
+                      {
+                        key: "cell(estado)",
+                        fn: function(data) {
+                          return [
+                            _c("label", {
+                              domProps: {
+                                textContent: _vm._s(
+                                  data.item.estado == 0
+                                    ? "PENDIENTE"
+                                    : "CONFIRMADO"
+                                )
+                              }
+                            })
+                          ]
+                        }
+                      },
+                      {
+                        key: "cell(acciones)",
+                        fn: function(row) {
+                          return [
+                            row.item.estado == 0
+                              ? _c(
+                                  "b-button",
+                                  {
+                                    attrs: {
+                                      size: "xs",
+                                      variant: "success",
+                                      title: "Confirmar inscripción"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.confirmar(row.item.id)
+                                      }
+                                    }
+                                  },
+                                  [_c("i", { staticClass: "fa fa-check" })]
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            row.item.estado == 0
+                              ? _c(
+                                  "b-button",
+                                  {
+                                    attrs: {
+                                      size: "xs",
+                                      variant: "danger",
+                                      title: "Eliminar inscripción notificando"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.borrar(row.item.id, 1)
+                                      }
+                                    }
+                                  },
+                                  [_c("i", { staticClass: "fa fa-envelope-o" })]
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            row.item.estado == 0
+                              ? _c(
+                                  "b-button",
+                                  {
+                                    attrs: {
+                                      size: "xs",
+                                      variant: "danger",
+                                      title:
+                                        "Eliminar inscripción sin notificar"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.borrar(row.item.id, 2)
+                                      }
+                                    }
+                                  },
+                                  [_c("i", { staticClass: "fa fa-trash-o" })]
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            row.item.estado == 1
+                              ? _c(
+                                  "b-button",
+                                  {
+                                    attrs: {
+                                      size: "xs",
+                                      variant: "danger",
+                                      title: "Marcar como pendiente de pago"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.pendiente(row.item.id)
+                                      }
+                                    }
+                                  },
+                                  [_c("i", { staticClass: "fa fa-remove" })]
+                                )
+                              : _vm._e()
+                          ]
+                        }
+                      }
+                    ])
+                  })
+                ],
+                1
+              )
+            ],
+            1
           )
         ],
         1
@@ -99297,6 +99998,76 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/intranet/ventas.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/intranet/ventas.vue ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ventas_vue_vue_type_template_id_c8665388___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ventas.vue?vue&type=template&id=c8665388& */ "./resources/js/components/intranet/ventas.vue?vue&type=template&id=c8665388&");
+/* harmony import */ var _ventas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ventas.vue?vue&type=script&lang=js& */ "./resources/js/components/intranet/ventas.vue?vue&type=script&lang=js&");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _ventas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _ventas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ventas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ventas_vue_vue_type_template_id_c8665388___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ventas_vue_vue_type_template_id_c8665388___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/intranet/ventas.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/intranet/ventas.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/intranet/ventas.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ventas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./ventas.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/intranet/ventas.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ventas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/intranet/ventas.vue?vue&type=template&id=c8665388&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/intranet/ventas.vue?vue&type=template&id=c8665388& ***!
+  \************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ventas_vue_vue_type_template_id_c8665388___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./ventas.vue?vue&type=template&id=c8665388& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/intranet/ventas.vue?vue&type=template&id=c8665388&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ventas_vue_vue_type_template_id_c8665388___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ventas_vue_vue_type_template_id_c8665388___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/login.vue":
 /*!*******************************************!*\
   !*** ./resources/js/components/login.vue ***!
@@ -99448,9 +100219,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_intranet_tallas_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/intranet/tallas.vue */ "./resources/js/components/intranet/tallas.vue");
 /* harmony import */ var _components_intranet_categorias_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/intranet/categorias.vue */ "./resources/js/components/intranet/categorias.vue");
 /* harmony import */ var _components_intranet_atletas_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/intranet/atletas.vue */ "./resources/js/components/intranet/atletas.vue");
+/* harmony import */ var _components_intranet_ventas_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/intranet/ventas.vue */ "./resources/js/components/intranet/ventas.vue");
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 
 Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
 
 
 
@@ -99468,6 +100241,10 @@ Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
     name: 'atletas',
     component: _components_intranet_atletas_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
     props: true
+  }, {
+    path: '/ventas',
+    name: 'ventas',
+    component: _components_intranet_ventas_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
   }],
   mode: 'history'
 }));

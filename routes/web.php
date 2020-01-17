@@ -38,5 +38,7 @@ Route::get('/atletas/categoria/{id}', 'AtletaController@index_categoria')->name(
 Route::post('/atletas/admin/agregar', 'AtletaController@agregar_admin')->name('Agregar atleta');
 //Route::post('/categoria/borrar', 'AtletaController@borrar')->name('Borrar categoria');
 
+//Rutas de categorias
+Route::get('/ventas/torneo', 'VentaController@index')->name('Listar ventas');
 
 Route::get('/{any}', 'HomeController@index')->where('any', '.*')->name('home');

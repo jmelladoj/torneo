@@ -32,18 +32,17 @@
                             </b-col>
                     </b-card>
                     <b-card class="mt-0 mb-0">
-
-                            <b-col cols="12">
-                                <div class="d-flex no-block align-items-center">
-                                    <div>
-                                        <h4><i class="fa fa-users"></i></h4>
-                                        <h6 class="text-muted"><b>Cupos disponibles</b></h6>
-                                    </div>
-                                    <div class="ml-auto">
-                                        <h4 class="counter text-warning">0</h4>
-                                    </div>
+                        <b-col cols="12">
+                            <div class="d-flex no-block align-items-center">
+                                <div>
+                                    <h4><i class="fa fa-users"></i></h4>
+                                    <h6 class="text-muted"><b>Cupos disponibles</b></h6>
                                 </div>
-                            </b-col>
+                                <div class="ml-auto">
+                                    <h4 class="counter text-warning">0</h4>
+                                </div>
+                            </div>
+                        </b-col>
                     </b-card>
                 </b-card-group>
             </b-col>
@@ -236,6 +235,7 @@
                     { key: 'categoria_nombre', label: 'Categoría', sortable: true, class: 'text-left' },
                     { key: 'valor', label: 'Valor', sortable: true, class: 'text-left' },
                     { key: 'cupos', label: 'Cupos', sortable: true, class: 'text-left' },
+                    { key: 'cupos', label: 'Total', sortable: true, class: 'text-left' },
                     { key: 'inscritos', label: 'Inscritos', sortable: true, class: 'text-left' },
                     { key: 'acciones', label: 'Acciones', class: 'text-center'}
                 ],

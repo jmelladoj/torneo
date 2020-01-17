@@ -2,7 +2,7 @@
     <div>
         <titulo-pagina titulo="Tallas de poleras"></titulo-pagina>
 
-        <b-row>
+        <b-row> 
             <b-col>
                 <b-card>
                     <b-row>
@@ -108,6 +108,7 @@
                 fields: [
                     { key: 'index', label: '#', sortable: true, class: 'text-center' },
                     { key: 'talla', label: 'Nombre', sortable: true, class: 'text-left' },
+                    { key: 'cantidad_poleras', label: 'Cantidad poleras', sortable: true, class: 'text-left' },
                     { key: 'acciones', label: 'Acciones', class: 'text-center'}
                 ],
                 totalRows: 1,

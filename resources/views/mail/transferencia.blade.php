@@ -15,7 +15,7 @@
 
     <p style="font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px">
         Transferencia bancaria (<b>recuerda que en esta opción debes enviar el comprobante de transferencia a pagos@torneoarena.cl indicando correctamente en el asunto tu nombre (la de la dupla o trio) y categoría</b>). <br><br>
-        <b>Los valores a transferir son: INDIVIDUAL $35.000.- DUPLAS $70.000.- Y TRIOS $105.000.-</b><br><br>
+        <b>El valor a transferir de la categoría <b> {{ $atleta->categoria->nombre_categoria . ' ' . $atleta->categoria->nombre }}  </b> es <b> {{ $atleta->categoria->valor }} </b>.-</b><br><br>
         Datos:<br>
         &nbsp;&nbsp;&nbsp;&nbsp;VIVALLOS Y ARIAS LIMITADA<br>
         &nbsp;&nbsp;&nbsp;&nbsp;CUENTA CORRIENTE BANCO BCI<br>
