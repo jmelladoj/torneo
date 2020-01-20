@@ -40,6 +40,7 @@
         </div>
     </section>
 
+
     <section id="contacto" class="wow fadeInUp">
 
         <div class="container">
@@ -78,35 +79,6 @@
         </div>
     </section>
 
-    <!--<section id="" class="section-with-bg wow fadeInUp">
-        <div class="container">
-          <div class="section-header">
-            <h2>Sponsors</h2>
-          </div>
-
-          <div class="row">
-            <div class="col-lg-3 col-md-4 col-xs-6">
-              <div class="sponsor-logo">
-                <img src="{{ asset('pagina/img/sponsors/1.png') }} " class="img-fluid" alt="">
-              </div>
-            </div>
-
-            <div class="col-lg-3 col-md-4 col-xs-6">
-                <div class="sponsor-logo">
-                  <img src="{{ asset('pagina/img/sponsors/2.png') }} " class="img-fluid" alt="">
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-4 col-xs-6">
-                <div class="sponsor-logo">
-                  <img src="{{ asset('pagina/img/sponsors/3.jpg') }} " class="img-fluid" alt="">
-                </div>
-            </div>
-          </div>
-        </div>
-      </section>-->
-
-
     <section id="venue" class="section-with-bg wow fadeInUp">
 
         <div class="container-fluid">
@@ -125,4 +97,26 @@
         </div>
 
     </section>
+
+    <section id="sponsors" class="wow fadeInUp">
+        <div class="container">
+          <div class="section-header">
+            <h2>Sponsors</h2>
+          </div>
+        </div>
+
+        <div class="row text-center">
+            <div class="col-3">
+                <img src="{{ asset('pagina/img/sponsors/1.png') }} " class="img-fluid" alt="">
+            </div>
+            <div class="col-3">
+                <img src="{{ asset('pagina/img/sponsors/2.png') }} " class="img-fluid" alt="">
+            </div>
+            <div class="col-3">
+                <img src="{{ asset('pagina/img/sponsors/3.jpg') }} " class="img-fluid" alt="">
+            </div>
+        </div>
+
+    </section>
+
 @endsection

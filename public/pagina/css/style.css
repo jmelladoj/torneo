@@ -1667,3 +1667,8 @@ body.mobile-nav-active #mobile-nav-toggle {
 .img-max-height {
     max-height: 200px !important;
 }
+
+.sponsor-max-height {
+    max-height: 100px !important;
+    width: auto !important;
+}

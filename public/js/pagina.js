@@ -455,6 +455,16 @@ jQuery(document).ready(function( $ ) {
     }
   });
 
+  $(".gallery-carousel-sponsors").owlCarousel({
+    center:true,
+    autoplay: true,
+    dots: true,
+    loop: true,
+    margin:10,
+    responsive: { 0: { items: 2 }, 768: { items: 3 }, 992: { items: 3 }, 1200: {items: 3}
+    }
+  });
+
   // Buy tickets select the ticket type on click
   $('#buy-ticket-modal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
