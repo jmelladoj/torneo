@@ -397,7 +397,7 @@ h6 {
 }
 
 .section-with-bg {
-  background-color: #f6f7fd;
+    background: url(../../pagina/img/intro-bg.jpg) top center;
 }
 
 /*--------------------------------------------------------------
@@ -1054,11 +1054,11 @@ body.mobile-nav-active #mobile-nav-toggle {
 # Schedule Section
 --------------------------------------------------------------*/
 
-#schedule {
+#inscripciones {
   padding: 60px 0 60px 0;
 }
 
-#schedule .nav-tabs {
+#inscripciones .nav-tabs {
   text-align: center;
   margin: auto;
   display: block;
@@ -1066,12 +1066,12 @@ body.mobile-nav-active #mobile-nav-toggle {
   margin-bottom: 30px;
 }
 
-#schedule .nav-tabs li {
+#inscripciones .nav-tabs li {
   display: inline-block;
   margin-bottom: 0;
 }
 
-#schedule .nav-tabs a {
+#inscripciones .nav-tabs a {
   border: none;
   border-radius: 50px;
   font-weight: 600;
@@ -1080,39 +1080,39 @@ body.mobile-nav-active #mobile-nav-toggle {
   padding: 10px 100px;
 }
 
-#schedule .nav-tabs a.active {
+#inscripciones .nav-tabs a.active {
   background-color: #c01f1f;
   color: #fff;
 }
 
-#schedule .sub-heading {
+#inscripciones .sub-heading {
   text-align: center;
   font-size: 18px;
   font-style: italic;
   margin: 0 auto 30px auto;
 }
 
-#schedule .tab-pane {
+#inscripciones .tab-pane {
   transition: ease-in-out .2s;
 }
 
-#schedule .schedule-item {
+#inscripciones .schedule-item {
   border-bottom: 1px solid #cad4f6;
   padding-top: 15px;
   padding-bottom: 15px;
   transition: background-color ease-in-out 0.3s;
 }
 
-#schedule .schedule-item:hover {
+#inscripciones .schedule-item:hover {
   background-color: #fff;
 }
 
-#schedule .schedule-item time {
+#inscripciones .schedule-item time {
   padding-bottom: 5px;
   display: inline-block;
 }
 
-#schedule .schedule-item .speaker {
+#inscripciones .schedule-item .speaker {
   width: 60px;
   height: 60px;
   overflow: hidden;
@@ -1121,7 +1121,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   margin: 0 10px 10px 0;
 }
 
-#schedule .schedule-item .speaker img {
+#inscripciones .schedule-item .speaker img {
   height: 100%;
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
@@ -1129,20 +1129,20 @@ body.mobile-nav-active #mobile-nav-toggle {
   transition: all ease-in-out 0.3s;
 }
 
-#schedule .schedule-item h4 {
+#inscripciones .schedule-item h4 {
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 5px;
 }
 
-#schedule .schedule-item h4 span {
+#inscripciones .schedule-item h4 span {
   font-style: italic;
   color: #19328e;
   font-weight: normal;
   font-size: 16px;
 }
 
-#schedule .schedule-item p {
+#inscripciones .schedule-item p {
   font-style: italic;
   color: #152b79;
   margin-bottom: 0;
@@ -1278,23 +1278,23 @@ body.mobile-nav-active #mobile-nav-toggle {
 # Gallery Section
 --------------------------------------------------------------*/
 
-#gallery {
+#galeria {
   padding: 60px;
   overflow: hidden;
 }
 
-#gallery .owl-nav,
-#gallery .owl-dots {
+#galeria .owl-nav,
+#galeria .owl-dots {
   margin-top: 25px;
   text-align: center;
 }
 
-#gallery .owl-item {
+#galeria .owl-item {
   border-left: 2px solid #fff;
   border-right: 2px solid #fff;
 }
 
-#gallery .owl-dot {
+#galeria .owl-dot {
   display: inline-block;
   margin: 0 5px;
   width: 12px;
@@ -1303,15 +1303,15 @@ body.mobile-nav-active #mobile-nav-toggle {
   background-color: #ddd;
 }
 
-#gallery .owl-dot.active {
+#galeria .owl-dot.active {
   background-color: #c01f1f;
 }
 
-#gallery .gallery-carousel .owl-stage-outer {
+#galeria .gallery-carousel .owl-stage-outer {
   overflow: visible;
 }
 
-#gallery .gallery-carousel .center {
+#galeria .gallery-carousel .center {
   border: 6px solid #c01f1f;
   margin: -10px;
   box-sizing: content-box;
@@ -1546,29 +1546,29 @@ body.mobile-nav-active #mobile-nav-toggle {
 # Contact Section
 --------------------------------------------------------------*/
 
-#contact {
+#contacto {
   padding: 60px 0;
 }
 
-#contact .contact-info {
+#contacto .contact-info {
   margin-bottom: 20px;
   text-align: center;
 }
 
-#contact .contact-info i {
+#contacto .contact-info i {
   font-size: 48px;
   display: inline-block;
   margin-bottom: 10px;
   color: #c01f1f;
 }
 
-#contact .contact-info address,
-#contact .contact-info p {
+#contacto .contact-info address,
+#contacto .contact-info p {
   margin-bottom: 0;
   color: #112363;
 }
 
-#contact .contact-info h3 {
+#contacto .contact-info h3 {
   font-size: 18px;
   margin-bottom: 15px;
   font-weight: bold;
@@ -1576,21 +1576,21 @@ body.mobile-nav-active #mobile-nav-toggle {
   color: #112363;
 }
 
-#contact .contact-info a {
+#contacto .contact-info a {
   color: #4869df;
 }
 
-#contact .contact-info a:hover {
+#contacto .contact-info a:hover {
   color: #c01f1f;
 }
 
-#contact .contact-address,
-#contact .contact-phone,
-#contact .contact-email {
+#contacto .contact-address,
+#contacto .contact-phone,
+#contacto .contact-email {
   margin-bottom: 20px;
 }
 
-#contact .form #sendmessage {
+#contacto .form #sendmessage {
   color: #c01f1f;
   border: 1px solid #c01f1f;
   display: none;
@@ -1600,7 +1600,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   margin-bottom: 15px;
 }
 
-#contact .form #errormessage {
+#contacto .form #errormessage {
   color: red;
   display: none;
   border: 1px solid red;
@@ -1610,13 +1610,13 @@ body.mobile-nav-active #mobile-nav-toggle {
   margin-bottom: 15px;
 }
 
-#contact .form #sendmessage.show,
-#contact .form #errormessage.show,
-#contact .form .show {
+#contacto .form #sendmessage.show,
+#contacto .form #errormessage.show,
+#contacto .form .show {
   display: block;
 }
 
-#contact .form .validation {
+#contacto .form .validation {
   color: red;
   display: none;
   margin: 0 0 20px;
@@ -1624,15 +1624,15 @@ body.mobile-nav-active #mobile-nav-toggle {
   font-size: 13px;
 }
 
-#contact .form input,
-#contact .form textarea {
+#contacto .form input,
+#contacto .form textarea {
   padding: 10px 14px;
   border-radius: 0;
   box-shadow: none;
   font-size: 15px;
 }
 
-#contact .form button[type="submit"] {
+#contacto .form button[type="submit"] {
   background: #c01f1f;
   border: 0;
   padding: 10px 40px;
@@ -1642,7 +1642,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   cursor: pointer;
 }
 
-#contact .form button[type="submit"]:hover {
+#contacto .form button[type="submit"]:hover {
   background: #e0072f;
 }
 
@@ -1807,20 +1807,20 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 @media (min-width: 768px) {
-  #contact .contact-address,
-  #contact .contact-phone,
-  #contact .contact-email {
+  #contacto .contact-address,
+  #contacto .contact-phone,
+  #contacto .contact-email {
     padding: 20px 0;
   }
 
-  #contact .contact-phone {
+  #contacto .contact-phone {
     border-left: 1px solid #ddd;
     border-right: 1px solid #ddd;
   }
 }
 
 @media (min-width: 991px) {
-  #schedule .sub-heading {
+  #inscripciones .sub-heading {
     width: 75%;
   }
 }
@@ -1877,7 +1877,7 @@ body.mobile-nav-active #mobile-nav-toggle {
     font-size: 16px;
   }
 
-  #schedule .nav-tabs a {
+  #inscripciones .nav-tabs a {
     padding: 8px 60px;
   }
 }
@@ -1897,7 +1897,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 @media (max-width: 767px) {
-  #schedule .nav-tabs a {
+  #inscripciones .nav-tabs a {
     padding: 8px 50px;
   }
 }
@@ -1909,7 +1909,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 @media (max-width: 480px) {
-  #schedule .nav-tabs a {
+  #inscripciones .nav-tabs a {
     padding: 8px 30px;
   }
 }
@@ -1922,4 +1922,8 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 .padding-instagram {
   padding: 4px !important;
+}
+
+.img-max-height {
+    max-height: 200px !important;
 }

@@ -3985,13 +3985,183 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      categorias: []
+      categoria: [],
+      categoria_seleccionada: null,
+      categorias: [],
+      poleras: [],
+      registro_atleta: {
+        nombre_equipo: '',
+        atletas: [],
+        box: '',
+        email: ''
+      },
+      modal_inscripcion: {
+        titulo: ''
+      }
     };
+  },
+  validations: {
+    registro_atleta: {
+      box: {
+        required: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["requiredIf"])(function () {
+          return this.registro_atleta.box.length > 0 ? true : false;
+        }),
+        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["minLength"])(1)
+      },
+      nombre_equipo: {
+        required: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["requiredIf"])(function () {
+          return this.categoria.categoria > 1 ? true : false;
+        }),
+        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["minLength"])(1)
+      },
+      email: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"],
+        email: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["email"]
+      },
+      atletas: {
+        $each: {
+          run: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"],
+            minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["minLength"])(3)
+          },
+          nombre: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"],
+            minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["minLength"])(3)
+          },
+          polera: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"],
+            minValue: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["minValue"])(1)
+          },
+          fecha_nacimiento: {
+            required: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["requiredIf"])(function () {
+              return this.categoria.limitancia_edad == 1 ? true : false;
+            })
+          }
+        }
+      }
+    }
   },
   computed: {
     individuales: function individuales() {
@@ -4011,15 +4181,77 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapMutations"])(['msg_success', 'msg_error']), {
-    onFiltered: function onFiltered(filteredcategorias) {
-      this.totalRows = filteredcategorias.length;
-      this.currentPage = 1;
+    listar_tallas: function listar_tallas() {
+      var me = this;
+      axios.get('/poleras').then(function (response) {
+        me.poleras = response.data.poleras;
+      })["catch"](function (error) {
+        console.log(error);
+      });
     },
     listar_categorias: function listar_categorias() {
       var me = this;
       axios.get('/categorias/atletas').then(function (response) {
         me.categorias = response.data.categorias;
-        me.totalRows = me.categorias.length;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    cargar_campos_atletas: function cargar_campos_atletas() {
+      var me = this;
+
+      for (var i = 0; i < this.categoria_seleccionada; i++) {
+        var atleta = new Object();
+        atleta.nombre = '';
+        atleta.run = '';
+        atleta.polera = null;
+        atleta.fecha_nacimiento = null;
+        me.registro_atleta.atletas.push(atleta);
+      }
+    },
+    abrir_modal_inscripcion: function abrir_modal_inscripcion() {
+      var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+      this.limpiar_datos_registro();
+      this.modal_inscripcion.titulo = data.categoria_nombre + ' - ' + data.nombre;
+      this.categoria = data;
+      this.categoria_seleccionada = data.categoria;
+      this.cargar_campos_atletas();
+      this.$refs['modal_inscripcion'].show();
+    },
+    cerrar_modal_inscripcion: function cerrar_modal_inscripcion() {
+      this.$refs['modal_inscripcion'].hide();
+    },
+    limpiar_datos_registro: function limpiar_datos_registro() {
+      this.registro_atleta.nombre_equipo = '';
+      this.registro_atleta.blox = '';
+      this.registro_atleta.email = '';
+      this.registro_atleta.atletas = [];
+      this.$v.$reset();
+    },
+    inscripcion: function inscripcion() {
+      if (this.$v.registro_atleta.$invalid) {
+        this.$v.registro_atleta.$touch();
+        return;
+      }
+
+      var me = this;
+      axios.post('/atletas/usuario/agregar', {
+        'categoria_id': me.categoria.id,
+        'nombre_equipo': me.registro_atleta.nombre_equipo,
+        'atletas': me.registro_atleta.atletas,
+        'box': me.registro_atleta.box,
+        'email': me.registro_atleta.email
+      }).then(function (response) {
+        //me.listar_categorias()
+        var form = document.createElement("form");
+        var input_token = document.createElement("input");
+        form.method = "POST";
+        form.action = response.data.url;
+        input_token.value = response.data.token;
+        input_token.name = "TBK_TOKEN";
+        form.appendChild(input_token);
+        document.body.appendChild(form);
+        form.submit();
       })["catch"](function (error) {
         console.log(error);
       });
@@ -4027,6 +4259,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   }),
   mounted: function mounted() {
     this.listar_categorias();
+    this.listar_tallas();
   }
 });
 
@@ -81244,157 +81477,690 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "section",
-    { staticClass: "section-with-bg", attrs: { id: "schedule" } },
+    "div",
     [
-      _c("div", { staticClass: "container wow fadeInUp" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c("ul", { staticClass: "nav nav-tabs", attrs: { role: "tablist" } }, [
-          _vm.individuales.length > 0
-            ? _c("li", { staticClass: "nav-item" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "nav-link active",
-                    attrs: {
-                      href: "#individual",
-                      role: "tab",
-                      "data-toggle": "tab"
-                    }
-                  },
-                  [_vm._v("Individual")]
-                )
-              ])
-            : _vm._e(),
+      _c("section", { attrs: { id: "inscripciones" } }, [
+        _c("div", { staticClass: "container wow fadeInUp" }, [
+          _vm._m(0),
           _vm._v(" "),
-          _vm.duplas.length > 0
-            ? _c("li", { staticClass: "nav-item" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "nav-link",
-                    attrs: {
-                      href: "#duplas",
-                      role: "tab",
-                      "data-toggle": "tab"
-                    }
-                  },
-                  [_vm._v("Duplas")]
-                )
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.trios.length > 0
-            ? _c("li", { staticClass: "nav-item" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "nav-link",
-                    attrs: { href: "#trios", role: "tab", "data-toggle": "tab" }
-                  },
-                  [_vm._v("Tríos")]
-                )
-              ])
-            : _vm._e()
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "tab-content row justify-content-center" }, [
           _c(
-            "div",
-            {
-              staticClass: "col-lg-9 tab-pane fade show active",
-              attrs: { role: "tabpanel", id: "individual" }
-            },
-            _vm._l(_vm.individuales, function(i) {
-              return _c(
-                "div",
-                { key: i.id, staticClass: "row schedule-item" },
-                [
-                  _c("div", { staticClass: "col-md-8" }, [
-                    _c("h4", {
-                      domProps: {
-                        textContent: _vm._s(i.categoria_nombre + " " + i.nombre)
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "col-md-4 text-right" },
-                    [_c("b-button", [_vm._v("Inscribirme")])],
-                    1
-                  )
-                ]
-              )
-            }),
-            0
+            "ul",
+            { staticClass: "nav nav-tabs", attrs: { role: "tablist" } },
+            [
+              _vm.individuales.length > 0
+                ? _c("li", { staticClass: "nav-item" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "nav-link active",
+                        attrs: {
+                          href: "#individual",
+                          role: "tab",
+                          "data-toggle": "tab"
+                        }
+                      },
+                      [_vm._v("Individual")]
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.duplas.length > 0
+                ? _c("li", { staticClass: "nav-item" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "nav-link",
+                        attrs: {
+                          href: "#duplas",
+                          role: "tab",
+                          "data-toggle": "tab"
+                        }
+                      },
+                      [_vm._v("Duplas")]
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.trios.length > 0
+                ? _c("li", { staticClass: "nav-item" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "nav-link",
+                        attrs: {
+                          href: "#trios",
+                          role: "tab",
+                          "data-toggle": "tab"
+                        }
+                      },
+                      [_vm._v("Tríos")]
+                    )
+                  ])
+                : _vm._e()
+            ]
           ),
           _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "col-lg-9  tab-pane fade",
-              attrs: { role: "tabpanel", id: "duplas" }
-            },
-            _vm._l(_vm.duplas, function(d) {
-              return _c(
-                "div",
-                { key: d.id, staticClass: "row schedule-item" },
-                [
-                  _c("div", { staticClass: "col-md-8" }, [
-                    _c("h4", {
-                      domProps: {
-                        textContent: _vm._s(d.categoria_nombre + " " + d.nombre)
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "col-md-4 text-right" },
-                    [_c("b-button", [_vm._v("Inscribirme")])],
-                    1
-                  )
-                ]
-              )
-            }),
-            0
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "col-lg-9  tab-pane fade",
-              attrs: { role: "tabpanel", id: "trios" }
-            },
-            _vm._l(_vm.trios, function(t) {
-              return _c(
-                "div",
-                { key: t.id, staticClass: "row schedule-item" },
-                [
-                  _c("div", { staticClass: "col-md-8" }, [
-                    _c("h4", {
-                      domProps: {
-                        textContent: _vm._s(t.categoria_nombre + " " + t.nombre)
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "col-md-4 text-right" },
-                    [_c("b-button", [_vm._v("Inscribirme")])],
-                    1
-                  )
-                ]
-              )
-            }),
-            0
-          )
+          _c("div", { staticClass: "tab-content row justify-content-center" }, [
+            _c(
+              "div",
+              {
+                staticClass: "col-lg-9 tab-pane fade show active",
+                attrs: { role: "tabpanel", id: "individual" }
+              },
+              _vm._l(_vm.individuales, function(i) {
+                return _c(
+                  "div",
+                  { key: i.id, staticClass: "row schedule-item" },
+                  [
+                    _c("div", { staticClass: "col-md-8" }, [
+                      _c("h4", {
+                        domProps: {
+                          textContent: _vm._s(
+                            i.categoria_nombre + " " + i.nombre
+                          )
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-md-4 text-right" },
+                      [
+                        _c(
+                          "b-button",
+                          {
+                            on: {
+                              click: function($event) {
+                                return _vm.abrir_modal_inscripcion(i)
+                              }
+                            }
+                          },
+                          [_vm._v("Inscribirme")]
+                        )
+                      ],
+                      1
+                    )
+                  ]
+                )
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "col-lg-9  tab-pane fade",
+                attrs: { role: "tabpanel", id: "duplas" }
+              },
+              _vm._l(_vm.duplas, function(d) {
+                return _c(
+                  "div",
+                  { key: d.id, staticClass: "row schedule-item" },
+                  [
+                    _c("div", { staticClass: "col-md-8" }, [
+                      _c("h4", {
+                        domProps: {
+                          textContent: _vm._s(
+                            d.categoria_nombre + " " + d.nombre
+                          )
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-md-4 text-right" },
+                      [
+                        _c(
+                          "b-button",
+                          {
+                            on: {
+                              click: function($event) {
+                                return _vm.abrir_modal_inscripcion(d)
+                              }
+                            }
+                          },
+                          [_vm._v("Inscribirme")]
+                        )
+                      ],
+                      1
+                    )
+                  ]
+                )
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "col-lg-9  tab-pane fade",
+                attrs: { role: "tabpanel", id: "trios" }
+              },
+              _vm._l(_vm.trios, function(t) {
+                return _c(
+                  "div",
+                  { key: t.id, staticClass: "row schedule-item" },
+                  [
+                    _c("div", { staticClass: "col-md-8" }, [
+                      _c("h4", {
+                        domProps: {
+                          textContent: _vm._s(
+                            t.categoria_nombre + " " + t.nombre
+                          )
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-md-4 text-right" },
+                      [
+                        _c(
+                          "b-button",
+                          {
+                            on: {
+                              click: function($event) {
+                                return _vm.abrir_modal_inscripcion(t)
+                              }
+                            }
+                          },
+                          [_vm._v("Inscribirme")]
+                        )
+                      ],
+                      1
+                    )
+                  ]
+                )
+              }),
+              0
+            )
+          ])
         ])
-      ])
-    ]
+      ]),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          ref: "modal_inscripcion",
+          attrs: {
+            size: "lg",
+            title: _vm.modal_inscripcion.titulo,
+            "no-close-on-backdrop": "",
+            scrollable: "",
+            static: ""
+          }
+        },
+        [
+          _c(
+            "b-form",
+            [
+              _c(
+                "b-row",
+                [
+                  _c(
+                    "b-col",
+                    { attrs: { xs: "12", sm: "12", md: "6" } },
+                    [
+                      _c(
+                        "b-form-group",
+                        { attrs: { label: "Email encargado" } },
+                        [
+                          _c("b-form-input", {
+                            attrs: {
+                              state: _vm.$v.registro_atleta.email.$dirty
+                                ? !_vm.$v.registro_atleta.email.$error
+                                : null,
+                              "aria-describedby": "atleta-email"
+                            },
+                            model: {
+                              value: _vm.$v.registro_atleta.email.$model,
+                              callback: function($$v) {
+                                _vm.$set(
+                                  _vm.$v.registro_atleta.email,
+                                  "$model",
+                                  $$v
+                                )
+                              },
+                              expression: "$v.registro_atleta.email.$model"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "b-form-invalid-feedback",
+                            { attrs: { id: "atleta-email" } },
+                            [
+                              _vm._v(
+                                "\n                            Ingresa un correo válido, mínimo de 3 caracteres.\n                        "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    { attrs: { xs: "12", sm: "12", md: "6" } },
+                    [
+                      _c(
+                        "b-form-group",
+                        { attrs: { label: "Box" } },
+                        [
+                          _c("b-form-input", {
+                            attrs: {
+                              state: _vm.$v.registro_atleta.box.$dirty
+                                ? !_vm.$v.registro_atleta.box.$error
+                                : null,
+                              "aria-describedby": "atleta-box"
+                            },
+                            model: {
+                              value: _vm.$v.registro_atleta.box.$model,
+                              callback: function($$v) {
+                                _vm.$set(
+                                  _vm.$v.registro_atleta.box,
+                                  "$model",
+                                  $$v
+                                )
+                              },
+                              expression: "$v.registro_atleta.box.$model"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "b-form-invalid-feedback",
+                            { attrs: { id: "atleta-box" } },
+                            [
+                              _vm._v(
+                                "\n                            Campo de texto, mínimo de 1 caracter.\n                        "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.categoria_seleccionada > 1,
+                          expression: "categoria_seleccionada > 1"
+                        }
+                      ],
+                      attrs: { xs: "12", sm: "12", md: "6" }
+                    },
+                    [
+                      _c(
+                        "b-form-group",
+                        { attrs: { label: "Nombre de equipo" } },
+                        [
+                          _c("b-form-input", {
+                            attrs: {
+                              state: _vm.$v.registro_atleta.nombre_equipo.$dirty
+                                ? !_vm.$v.registro_atleta.nombre_equipo.$error
+                                : null,
+                              "aria-describedby": "atleta-nombre-equipo"
+                            },
+                            model: {
+                              value:
+                                _vm.$v.registro_atleta.nombre_equipo.$model,
+                              callback: function($$v) {
+                                _vm.$set(
+                                  _vm.$v.registro_atleta.nombre_equipo,
+                                  "$model",
+                                  $$v
+                                )
+                              },
+                              expression:
+                                "$v.registro_atleta.nombre_equipo.$model"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "b-form-invalid-feedback",
+                            { attrs: { id: "atleta-nombre-equipo" } },
+                            [
+                              _vm._v(
+                                "\n                            Campo de texto, mínimo de 1 caracter.\n                        "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm._l(_vm.registro_atleta.atletas, function(atleta, index) {
+                return _c(
+                  "b-row",
+                  { key: index },
+                  [
+                    _c("b-col", { attrs: { xs: "12", sm: "12", md: "12" } }, [
+                      _c("h6", {
+                        staticClass: "text-right",
+                        domProps: {
+                          textContent: _vm._s("Datos atleta " + (index + 1))
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "b-col",
+                      { attrs: { xs: "12", sm: "12", md: "6" } },
+                      [
+                        _c(
+                          "b-form-group",
+                          { attrs: { label: "Run atleta" } },
+                          [
+                            _c("b-form-input", {
+                              directives: [
+                                {
+                                  name: "rut",
+                                  rawName: "v-rut:live",
+                                  arg: "live"
+                                }
+                              ],
+                              attrs: {
+                                state: _vm.$v.registro_atleta.atletas.$each[
+                                  index
+                                ].run.$dirty
+                                  ? !_vm.$v.registro_atleta.atletas.$each[index]
+                                      .run.$error
+                                  : null,
+                                "aria-describedby": "atleta-run" + index
+                              },
+                              model: {
+                                value:
+                                  _vm.$v.registro_atleta.atletas.$each[index]
+                                    .run.$model,
+                                callback: function($$v) {
+                                  _vm.$set(
+                                    _vm.$v.registro_atleta.atletas.$each[index]
+                                      .run,
+                                    "$model",
+                                    $$v
+                                  )
+                                },
+                                expression:
+                                  "$v.registro_atleta.atletas.$each[index].run.$model"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "b-form-invalid-feedback",
+                              { attrs: { id: "atleta-run" + index } },
+                              [
+                                _vm._v(
+                                  "\n                            Campo de texto, mínimo de 3 caracteres.\n                        "
+                                )
+                              ]
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "b-col",
+                      { attrs: { xs: "12", sm: "12", md: "6" } },
+                      [
+                        _c(
+                          "b-form-group",
+                          { attrs: { label: "Nombre y apellido atleta" } },
+                          [
+                            _c("b-form-input", {
+                              attrs: {
+                                state: _vm.$v.registro_atleta.atletas.$each[
+                                  index
+                                ].nombre.$dirty
+                                  ? !_vm.$v.registro_atleta.atletas.$each[index]
+                                      .nombre.$error
+                                  : null,
+                                "aria-describedby": "atleta-nombre" + index
+                              },
+                              model: {
+                                value:
+                                  _vm.$v.registro_atleta.atletas.$each[index]
+                                    .nombre.$model,
+                                callback: function($$v) {
+                                  _vm.$set(
+                                    _vm.$v.registro_atleta.atletas.$each[index]
+                                      .nombre,
+                                    "$model",
+                                    $$v
+                                  )
+                                },
+                                expression:
+                                  "$v.registro_atleta.atletas.$each[index].nombre.$model"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "b-form-invalid-feedback",
+                              { attrs: { id: "atleta-nombre" + index } },
+                              [
+                                _vm._v(
+                                  "\n                            Campo de texto, mínimo de 3 caracteres.\n                        "
+                                )
+                              ]
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "b-col",
+                      { attrs: { xs: "12", sm: "12", md: "6" } },
+                      [
+                        _c(
+                          "b-form-group",
+                          { attrs: { label: "Talla de polera" } },
+                          [
+                            _c(
+                              "b-form-select",
+                              {
+                                attrs: {
+                                  state: _vm.$v.registro_atleta.atletas.$each[
+                                    index
+                                  ].polera.$dirty
+                                    ? !_vm.$v.registro_atleta.atletas.$each[
+                                        index
+                                      ].polera.$error
+                                    : null,
+                                  "aria-describedby": "atleta-polera" + index
+                                },
+                                model: {
+                                  value:
+                                    _vm.$v.registro_atleta.atletas.$each[index]
+                                      .polera.$model,
+                                  callback: function($$v) {
+                                    _vm.$set(
+                                      _vm.$v.registro_atleta.atletas.$each[
+                                        index
+                                      ].polera,
+                                      "$model",
+                                      $$v
+                                    )
+                                  },
+                                  expression:
+                                    "$v.registro_atleta.atletas.$each[index].polera.$model"
+                                }
+                              },
+                              [
+                                _c("option", { domProps: { value: null } }, [
+                                  _vm._v("Selecciona una opción ...")
+                                ]),
+                                _vm._v(" "),
+                                _vm._l(_vm.poleras, function(polera) {
+                                  return _c("option", {
+                                    key: polera.id,
+                                    domProps: {
+                                      value: polera.id,
+                                      textContent: _vm._s(polera.talla)
+                                    }
+                                  })
+                                })
+                              ],
+                              2
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-form-invalid-feedback",
+                              { attrs: { id: "atleta-polera" + index } },
+                              [
+                                _vm._v(
+                                  "\n                            Debes de seleccionar una opción.\n                        "
+                                )
+                              ]
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "b-col",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.categoria.limitancia_edad == 1,
+                            expression: "categoria.limitancia_edad == 1"
+                          }
+                        ],
+                        attrs: { xs: "12", sm: "12", md: "6" }
+                      },
+                      [
+                        _c(
+                          "b-form-group",
+                          { attrs: { label: "Fecha de nacimiento" } },
+                          [
+                            _c("b-form-input", {
+                              attrs: {
+                                type: "date",
+                                state: _vm.$v.registro_atleta.atletas.$each[
+                                  index
+                                ].fecha_nacimiento.$dirty
+                                  ? !_vm.$v.registro_atleta.atletas.$each[index]
+                                      .fecha_nacimiento.$error
+                                  : null,
+                                "aria-describedby":
+                                  "atleta-fecha-nacimiento" + index
+                              },
+                              model: {
+                                value:
+                                  _vm.$v.registro_atleta.atletas.$each[index]
+                                    .fecha_nacimiento.$model,
+                                callback: function($$v) {
+                                  _vm.$set(
+                                    _vm.$v.registro_atleta.atletas.$each[index]
+                                      .fecha_nacimiento,
+                                    "$model",
+                                    $$v
+                                  )
+                                },
+                                expression:
+                                  "$v.registro_atleta.atletas.$each[index].fecha_nacimiento.$model"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "b-form-invalid-feedback",
+                              {
+                                attrs: { id: "atleta-fecha-nacimiento" + index }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                            Ingresa una fecha válida para tu categoría.\n                        "
+                                )
+                              ]
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "b-col",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: index < 3,
+                            expression: "index < 3"
+                          }
+                        ],
+                        attrs: { xs: "12", sm: "12", md: "12" }
+                      },
+                      [_c("hr")]
+                    )
+                  ],
+                  1
+                )
+              })
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _c(
+            "template",
+            { slot: "modal-footer" },
+            [
+              _c(
+                "b-button",
+                {
+                  attrs: {
+                    disabled: _vm.$v.registro_atleta.$invalid,
+                    size: "md",
+                    variant: "success"
+                  },
+                  on: { click: _vm.inscripcion }
+                },
+                [_vm._v(" Ir a pagar ")]
+              ),
+              _vm._v(" "),
+              _c(
+                "b-button",
+                {
+                  attrs: { size: "md", variant: "danger" },
+                  on: { click: _vm.cerrar_modal_inscripcion }
+                },
+                [_vm._v(" Cerrar ")]
+              )
+            ],
+            1
+          )
+        ],
+        2
+      )
+    ],
+    1
   )
 }
 var staticRenderFns = [

@@ -11,6 +11,8 @@
 |
 */
 
+use App\Http\Controllers\AtletaController;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -36,11 +38,14 @@ Route::post('/categoria/borrar', 'CategoriaController@borrar')->name('Borrar cat
 //Rutas de atletas
 Route::get('/atletas/categoria/{id}', 'AtletaController@index_categoria')->name('Listar atletas por categoria');
 Route::post('/atletas/admin/agregar', 'AtletaController@agregar_admin')->name('Agregar atleta');
+Route::post('/atletas/usuario/agregar', 'AtletaController@agregar_usuario')->name('Agregar atleta webpay');
 //Route::post('/categoria/borrar', 'AtletaController@borrar')->name('Borrar categoria');
 
 //Rutas de categorias
 Route::get('/ventas/torneo', 'VentaController@index')->name('Listar ventas');
 Route::post('/venta/confirmar/pendiente', 'VentaController@confirmar_pendiente')->name('Confirmar o marcar como pendiente venta');
 Route::post('/venta/anular/inscripcion', 'VentaController@eliminar_inscripcion')->name('Elimina rinscripción atleta');
+Route::post('/inscripcion/procesar','VentaController@procesar')->name('Procesar inscripcion');
+Route::post('/inscripcion/finalizar','VentaController@finalizar')->name('Finalizar inscripcion');
 
 Route::get('/{any}', 'HomeController@index')->where('any', '.*')->name('home');

@@ -1,34 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-    <header id="header">
-        <div class="container">
-            <div id="logo" class="pull-left d-none">
-                <a href="#intro" class="scrollto"><img src="{{ asset('img/logo-arena.png') }}" alt="" title="" height="40"></a>
-            </div>
-
-            <nav id="nav-menu-container">
-                <ul class="nav-menu">
-                <li class="menu-active"><a href="#intro">INICIO</a></li>
-                <li><a href="#about">INSCRÍBETE</a></li>
-                <li><a href="#schedule">CONTACTO</a></li>
-                <li><a href="https://www.instagram.com/torneoarena/?hl=es-la" target="_blank" class="padding-instagram"><i class="fa fa-instagram fa-2x"></i></a></li>
-                <li class="buy-tickets"><a href="#buy-tickets">BASES</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
     <section id="intro">
         <div class="intro-container wow fadeIn">
             <img src="{{ asset('img/logo-arena.png') }}" class="img-fluid mb-5" />
-            <a href="#about" class="about-btn scrollto">Inscripciones</a>
+            <a href="#inscripciones" class="about-btn scrollto">Inscripciones</a>
         </div>
     </section>
 
     <categorias-inscripcion></categorias-inscripcion>
 
-    <section id="gallery" class="wow fadeInUp">
+    <section id="galeria" class="wow fadeInUp section-with-bg">
 
         <div class="container">
           <div class="section-header">
@@ -47,10 +29,18 @@
             <a href="{{ asset('pagina/img/gallery/7.jpg') }}" class="venobox" data-gall="gallery-carousel"><img src="{{ asset('pagina/img/gallery/7.jpg') }}" alt=""></a>
             <a href="{{ asset('pagina/img/gallery/8.jpg') }}" class="venobox" data-gall="gallery-carousel"><img src="{{ asset('pagina/img/gallery/8.jpg') }}" alt=""></a>
             <a href="{{ asset('pagina/img/gallery/9.jpg') }}" class="venobox" data-gall="gallery-carousel"><img src="{{ asset('pagina/img/gallery/9.jpg') }}" alt=""></a>
+            <a href="{{ asset('pagina/img/gallery/9.jpg') }}" class="venobox" data-gall="gallery-carousel"><img src="{{ asset('pagina/img/gallery/10.jpg') }}" alt=""></a>
+            <a href="{{ asset('pagina/img/gallery/9.jpg') }}" class="venobox" data-gall="gallery-carousel"><img src="{{ asset('pagina/img/gallery/11.jpg') }}" alt=""></a>
+            <a href="{{ asset('pagina/img/gallery/9.jpg') }}" class="venobox" data-gall="gallery-carousel"><img src="{{ asset('pagina/img/gallery/12.jpg') }}" alt=""></a>
+            <a href="{{ asset('pagina/img/gallery/9.jpg') }}" class="venobox" data-gall="gallery-carousel"><img src="{{ asset('pagina/img/gallery/13.jpg') }}" alt=""></a>
+            <a href="{{ asset('pagina/img/gallery/9.jpg') }}" class="venobox" data-gall="gallery-carousel"><img src="{{ asset('pagina/img/gallery/14.jpg') }}" alt=""></a>
+            <a href="{{ asset('pagina/img/gallery/9.jpg') }}" class="venobox" data-gall="gallery-carousel"><img src="{{ asset('pagina/img/gallery/15.jpg') }}" alt=""></a>
+            <a href="{{ asset('pagina/img/gallery/9.jpg') }}" class="venobox" data-gall="gallery-carousel"><img src="{{ asset('pagina/img/gallery/16.jpg') }}" alt=""></a>
+            <a href="{{ asset('pagina/img/gallery/9.jpg') }}" class="venobox" data-gall="gallery-carousel"><img src="{{ asset('pagina/img/gallery/17.jpg') }}" alt=""></a>
         </div>
     </section>
 
-    <section id="contact" class="section-with-bg wow fadeInUp">
+    <section id="contacto" class="wow fadeInUp">
 
         <div class="container">
 
@@ -88,7 +78,36 @@
         </div>
     </section>
 
-    <section id="venue" class="wow fadeInUp">
+    <!--<section id="" class="section-with-bg wow fadeInUp">
+        <div class="container">
+          <div class="section-header">
+            <h2>Sponsors</h2>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-3 col-md-4 col-xs-6">
+              <div class="sponsor-logo">
+                <img src="{{ asset('pagina/img/sponsors/1.png') }} " class="img-fluid" alt="">
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-xs-6">
+                <div class="sponsor-logo">
+                  <img src="{{ asset('pagina/img/sponsors/2.png') }} " class="img-fluid" alt="">
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-xs-6">
+                <div class="sponsor-logo">
+                  <img src="{{ asset('pagina/img/sponsors/3.jpg') }} " class="img-fluid" alt="">
+                </div>
+            </div>
+          </div>
+        </div>
+      </section>-->
+
+
+    <section id="venue" class="section-with-bg wow fadeInUp">
 
         <div class="container-fluid">
 
@@ -106,21 +125,4 @@
         </div>
 
     </section>
-
-    <footer id="footer">
-        <div class="footer-top">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-12 col-md-12">
-                    <div class="social-links text-center">
-                        <a href="https://www.instagram.com/torneoarena/?hl=es-la" target="_blank" class="instagram"><i class="fa fa-instagram"></i></a>
-                    </div>
-                    <div class="copyright">
-                        &copy;  <strong>Torneo Arena</strong>. Todos los derechos reservados.
-                    </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
 @endsection

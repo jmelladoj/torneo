@@ -31,7 +31,7 @@ class Confirmacion extends Mailable
     public function build()
     {
         return $this->from('inscripciones@torneoarena.cl')
-                    ->subject('LO SENTIMOS')
+                    ->subject('YA ERES PARTE DE TORNEO ARENA 2020')
                     ->view('mail.confirmacion')
                     ->with([
                         'atleta' => $this->atleta

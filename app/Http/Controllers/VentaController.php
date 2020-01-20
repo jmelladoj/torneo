@@ -9,6 +9,9 @@ use App\Venta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Freshwork\Transbank\CertificationBagFactory;
+use Freshwork\Transbank\TransbankServiceFactory;
+use Freshwork\Transbank\RedirectorHelper;
 
 
 class VentaController extends Controller
@@ -62,5 +65,57 @@ class VentaController extends Controller
             }
 
         });
+    }
+
+    public function procesar(Request $request){
+        $bag = CertificationBagFactory::integrationWebpayNormal();
+        $plus = TransbankServiceFactory::normal($bag);
+        $response = $plus->getTransactionResult();
+
+        $venta = Venta::where('token', $request->token_ws)->first();
+        $atleta = Atleta::find($venta->atleta_id);
+
+        if($response->detailOutput->responseCode == 0){
+            if($atleta->nombre_equipo != 'SIN EQUIPO'){
+                Atleta::where('nombre_equipo', $atleta->nombre_equipo)->where('created_at', $atleta->created_at)->update(['pago' => 1]);
+            } else {
+                $atleta->pago = 1;
+                $atleta->save();
+            }
+
+            $venta->estado = 1;
+            $venta->save();
+
+            Mail::to($atleta->correo)->send(new Confirmacion($atleta));
+        } else {
+            $venta->delete();
+
+            if($atleta->nombre_equipo != 'SIN EQUIPO'){
+                Atleta::where('nombre_equipo', $atleta->nombre_equipo)->where('created_at', $atleta->created_at)->delete();
+            } else {
+                $atleta->delete();
+            }
+
+            Mail::to($atleta->correo)->send(new Anular($atleta));
+        }
+
+        $plus->acknowledgeTransaction();
+        return RedirectorHelper::redirectBackNormal($response->urlRedirection);
+
+    }
+
+    public function finalizar(Request $request){
+        $venta = Venta::where('token', $request->token_ws)->first();
+
+        $titulo = "!! LO SENTIMOS ¡¡";
+        $texto =  "HEMOS TENIDO ALGUNOS <br> INCONVENIENTES PARA RECIBIR <br> TU PAGO. INTÉNTELO NUEVAMENTE.";
+
+        if($venta != null){
+            $atleta = Atleta::find($venta->atleta_id);
+            $titulo = "!! MUCHAS GRACIAS ¡¡";
+            $texto = "YA ESTAS INSCRITO EN EL <br> TORNEO ARENA, NO OLVIDES SEGUIR <br> NUESTRAS REDES SOCIALES PARA NO <br> PERDER DE NINGÚN DETALLE O SORPRESA.";
+        }
+
+        return view('resultado')->with(compact('titulo', 'texto'));
     }
 }
