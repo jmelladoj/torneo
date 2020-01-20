@@ -3725,7 +3725,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     }
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])(['msg_success', 'msg_error']), _defineProperty({
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])(['msg_success', 'msg_error']), {
     onFiltered: function onFiltered(filteredItems) {
       this.totalRows = filteredItems.length;
       this.currentPage = 1;
@@ -3739,11 +3739,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         console.log(error);
       });
     },
-    confirmar: function confirmar(id) {
+    confirmarOpendiente: function confirmarOpendiente(id, accion) {
       var _this = this;
 
       swal.fire({
-        title: '¿Deseas confirmar la venta?',
+        title: accion == 1 ? '¿Deseas confirmar la venta?' : '¿Deseas marcar la venta como pendiente de pago?',
         text: "¡No podrás revertir esto!",
         icon: 'warning',
         showCancelButton: true,
@@ -3753,18 +3753,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }).then(function (result) {
         if (result.value) {
           var me = _this;
-          axios.post('/venta/confirmar', {
-            'id': id
+          axios.post('/venta/confirmar/pendiente', {
+            'id': id,
+            'accion': accion
           }).then(function (response) {
-            me.listar_categorias();
-            me.$store.commit('msg_success', 'Venta confirmada exitosamente.');
+            me.listar_ventas();
+            me.$store.commit('msg_success', accion == 0 ? 'Venta confirmada exitosamente.' : 'Venta marcada como pendiente de pago');
           })["catch"](function (error) {
             console.log(error);
           });
         }
       });
     },
-    borrar: function borrar(id, accion) {
+    anular_inscripcion: function anular_inscripcion(id, accion) {
       var _this2 = this;
 
       swal.fire({
@@ -3778,10 +3779,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }).then(function (result) {
         if (result.value) {
           var me = _this2;
-          axios.post('/venta/confirmar', {
-            'id': id
+          axios.post('/venta/anular/inscripcion', {
+            'id': id,
+            'accion': accion
           }).then(function (response) {
-            me.listar_categorias();
+            me.listar_ventas();
             me.$store.commit('msg_success', 'Venta eliminada exitosamente.');
           })["catch"](function (error) {
             console.log(error);
@@ -3789,31 +3791,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       });
     }
-  }, "confirmar", function confirmar(id) {
-    var _this3 = this;
-
-    swal.fire({
-      title: '¿Deseas marcar como pendiente la venta?',
-      text: "¡No podrás revertir esto!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, ¡marcar!'
-    }).then(function (result) {
-      if (result.value) {
-        var me = _this3;
-        axios.post('/venta/confirmar', {
-          'id': id
-        }).then(function (response) {
-          me.listar_categorias();
-          me.$store.commit('msg_success', 'Venta marcada como pendiente exitosamente.');
-        })["catch"](function (error) {
-          console.log(error);
-        });
-      }
-    });
-  })),
+  }),
   mounted: function mounted() {
     this.listar_ventas();
   }
@@ -80997,7 +80975,10 @@ var render = function() {
                                     },
                                     on: {
                                       click: function($event) {
-                                        return _vm.confirmar(row.item.id)
+                                        return _vm.confirmarOpendiente(
+                                          row.item.id,
+                                          1
+                                        )
                                       }
                                     }
                                   },
@@ -81016,7 +80997,10 @@ var render = function() {
                                     },
                                     on: {
                                       click: function($event) {
-                                        return _vm.borrar(row.item.id, 1)
+                                        return _vm.anular_inscripcion(
+                                          row.item.id,
+                                          1
+                                        )
                                       }
                                     }
                                   },
@@ -81036,7 +81020,10 @@ var render = function() {
                                     },
                                     on: {
                                       click: function($event) {
-                                        return _vm.borrar(row.item.id, 2)
+                                        return _vm.anular_inscripcion(
+                                          row.item.id,
+                                          0
+                                        )
                                       }
                                     }
                                   },
@@ -81055,7 +81042,10 @@ var render = function() {
                                     },
                                     on: {
                                       click: function($event) {
-                                        return _vm.pendiente(row.item.id)
+                                        return _vm.confirmarOpendiente(
+                                          row.item.id,
+                                          0
+                                        )
                                       }
                                     }
                                   },
@@ -100002,15 +99992,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************************************!*\
   !*** ./resources/js/components/intranet/ventas.vue ***!
   \*****************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ventas_vue_vue_type_template_id_c8665388___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ventas.vue?vue&type=template&id=c8665388& */ "./resources/js/components/intranet/ventas.vue?vue&type=template&id=c8665388&");
 /* harmony import */ var _ventas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ventas.vue?vue&type=script&lang=js& */ "./resources/js/components/intranet/ventas.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _ventas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _ventas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -100040,7 +100029,7 @@ component.options.__file = "resources/js/components/intranet/ventas.vue"
 /*!******************************************************************************!*\
   !*** ./resources/js/components/intranet/ventas.vue?vue&type=script&lang=js& ***!
   \******************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

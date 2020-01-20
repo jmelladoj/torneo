@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class Transferencia extends Mailable
+class Anular extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -31,8 +31,8 @@ class Transferencia extends Mailable
     public function build()
     {
         return $this->from('inscripciones@torneoarena.cl')
-                    ->subject('YA FALTA POCO PARA COMPLETAR TU REGISTRO EN TORNEO ARENA 2020')
-                    ->view('mail.transferencia')
+                    ->subject('LO SENTIMOS')
+                    ->view('mail.anular')
                     ->with([
                         'atleta' => $this->atleta
                     ]);

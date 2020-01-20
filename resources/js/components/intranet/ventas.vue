@@ -58,19 +58,19 @@
                         </template>
 
                         <template v-slot:cell(acciones)="row">
-                            <b-button v-if="row.item.estado == 0" size="xs" variant="success" title="Confirmar inscripción" @click="confirmar(row.item.id)">
+                            <b-button v-if="row.item.estado == 0" size="xs" variant="success" title="Confirmar inscripción" @click="confirmarOpendiente(row.item.id, 1)">
                                 <i class="fa fa-check"></i>
                             </b-button>
 
-                            <b-button v-if="row.item.estado == 0" size="xs" variant="danger" title="Eliminar inscripción notificando" @click="borrar(row.item.id, 1)">
+                            <b-button v-if="row.item.estado == 0" size="xs" variant="danger" title="Eliminar inscripción notificando" @click="anular_inscripcion(row.item.id, 1)">
                                 <i class="fa fa-envelope-o"></i>
                             </b-button>
 
-                            <b-button v-if="row.item.estado == 0" size="xs" variant="danger" title="Eliminar inscripción sin notificar" @click="borrar(row.item.id, 2)">
+                            <b-button v-if="row.item.estado == 0" size="xs" variant="danger" title="Eliminar inscripción sin notificar" @click="anular_inscripcion(row.item.id, 0)">
                                 <i class="fa fa-trash-o"></i>
                             </b-button>
 
-                            <b-button v-if="row.item.estado == 1" size="xs" variant="danger" title="Marcar como pendiente de pago" @click="pendiente(row.item.id)">
+                            <b-button v-if="row.item.estado == 1" size="xs" variant="danger" title="Marcar como pendiente de pago" @click="confirmarOpendiente(row.item.id, 0)">
                                 <i class="fa fa-remove"></i>
                             </b-button>
                         </template>
@@ -131,9 +131,9 @@
                     console.log(error);
                 });
             },
-            confirmar(id) {
+            confirmarOpendiente(id, accion) {
                 swal.fire({
-                    title: '¿Deseas confirmar la venta?',
+                    title: accion == 1 ? '¿Deseas confirmar la venta?' : '¿Deseas marcar la venta como pendiente de pago?',
                     text: "¡No podrás revertir esto!",
                     icon: 'warning',
                     showCancelButton: true,
@@ -143,18 +143,19 @@
                 }).then((result) => {
                     if (result.value) {
                         let me = this
-                        axios.post('/venta/confirmar',{
-                            'id': id
+                        axios.post('/venta/confirmar/pendiente',{
+                            'id': id,
+                            'accion': accion
                         }).then(function (response) {
-                            me.listar_categorias();
-                            me.$store.commit('msg_success', 'Venta confirmada exitosamente.')
+                            me.listar_ventas();
+                            me.$store.commit('msg_success', accion == 0 ? 'Venta confirmada exitosamente.' : 'Venta marcada como pendiente de pago')
                         }).catch(function (error) {
                             console.log(error);
                         })
                     }
                 })
             },
-            borrar(id, accion) {
+            anular_inscripcion(id, accion) {
                 swal.fire({
                     title: accion == 1 ? '¿Deseas eliminar la inscripción notificando al atleta?' : '¿Deseas eliminar la inscripción sin notificar al atleta?',
                     text: "¡No podrás revertir esto!",
@@ -166,40 +167,18 @@
                 }).then((result) => {
                     if (result.value) {
                         let me = this
-                        axios.post('/venta/confirmar',{
-                            'id': id
+                        axios.post('/venta/anular/inscripcion',{
+                            'id': id,
+                            'accion': accion
                         }).then(function (response) {
-                            me.listar_categorias();
+                            me.listar_ventas();
                             me.$store.commit('msg_success', 'Venta eliminada exitosamente.')
                         }).catch(function (error) {
                             console.log(error);
                         })
                     }
                 })
-            },
-            confirmar(id) {
-                swal.fire({
-                    title: '¿Deseas marcar como pendiente la venta?',
-                    text: "¡No podrás revertir esto!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Sí, ¡marcar!'
-                }).then((result) => {
-                    if (result.value) {
-                        let me = this
-                        axios.post('/venta/confirmar',{
-                            'id': id
-                        }).then(function (response) {
-                            me.listar_categorias();
-                            me.$store.commit('msg_success', 'Venta marcada como pendiente exitosamente.')
-                        }).catch(function (error) {
-                            console.log(error);
-                        })
-                    }
-                })
-            },
+            }
         },
         mounted() {
             this.listar_ventas()

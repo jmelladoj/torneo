@@ -40,5 +40,7 @@ Route::post('/atletas/admin/agregar', 'AtletaController@agregar_admin')->name('A
 
 //Rutas de categorias
 Route::get('/ventas/torneo', 'VentaController@index')->name('Listar ventas');
+Route::post('/venta/confirmar/pendiente', 'VentaController@confirmar_pendiente')->name('Confirmar o marcar como pendiente venta');
+Route::post('/venta/anular/inscripcion', 'VentaController@eliminar_inscripcion')->name('Elimina rinscripción atleta');
 
 Route::get('/{any}', 'HomeController@index')->where('any', '.*')->name('home');
