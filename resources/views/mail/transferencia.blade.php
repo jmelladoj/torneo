@@ -26,7 +26,9 @@
 
     <p style="font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px">
         - Una vez realizado el pago y dentro de las próximas horas te enviaremos un correo de confirmación validando que ya estas inscrito correctamente.<br>
-        - El solo hecho de de haber  completado el formulario de registro no es valido como inscripción ni como reserva de cupos.
+        - El solo hecho de de haber  completado el formulario de registro no es válido como inscripción ni como reserva de cupos.
+        - La inscripción debe ser pagada en su totalidad, en caso de duplas y tríos, y tríos no se puede pagar de forma individual.
+        - Recuerda incluir el nombre de los atletas en el comprobante de pago.
     </p>
 
     <p style="font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px">
