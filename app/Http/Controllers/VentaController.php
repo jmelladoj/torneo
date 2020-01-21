@@ -113,7 +113,7 @@ class VentaController extends Controller
         if($venta != null){
             $atleta = Atleta::find($venta->atleta_id);
             $titulo = "!! MUCHAS GRACIAS ¡¡";
-            $texto = "YA ESTAS INSCRITO EN EL <br> TORNEO ARENA, NO OLVIDES SEGUIR <br> NUESTRAS REDES SOCIALES PARA NO <br> PERDER DE NINGÚN DETALLE O SORPRESA.";
+            $texto = "YA ESTAS INSCRITO EN <br> ARENA 2020, NO OLVIDES SEGUIR <br> NUESTRAS REDES SOCIALES PARA NO <br> PERDER NINGÚN DETALLE.";
         }
 
         return view('resultado')->with(compact('titulo', 'texto'));

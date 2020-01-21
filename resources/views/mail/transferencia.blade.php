@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>YA FALTA POCO PARA COMPLETAR TU REGISTRO EN TORNEO ARENA 2020</title>
+    <title>YA FALTA POCO PARA COMPLETAR TU REGISTRO EN ARENA 2020</title>
 </head>
 <body>
-    <h2><b>Ya falta poco para completar tu registro en TORNEO ARENA 2020</b></h2>
+    <h2><b>Ya falta poco para completar tu registro en ARENA 2020</b></h2>
 
     <p style="font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px">
         Para finalizar debes pagar tu inscripción en la categoría <b> {{ $atleta->categoria->nombre_categoria . ' ' . $atleta->categoria->nombre }} </b> por medio de una transferencia bancaria con los datos que se indican a continuación:

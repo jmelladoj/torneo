@@ -105,16 +105,25 @@
           </div>
         </div>
 
-        <div class="row text-center">
-            <div class="col-3">
+        <div class="row text-center mb-5">
+            <div class="col-4">
                 <img src="{{ asset('pagina/img/sponsors/1.png') }} " class="img-fluid" alt="">
             </div>
-            <div class="col-3">
+            <div class="col-4">
+                <img src="{{ asset('pagina/img/sponsors/3.png') }} " class="img-fluid" alt="">
+            </div>
+            <div class="col-4">
                 <img src="{{ asset('pagina/img/sponsors/2.png') }} " class="img-fluid" alt="">
             </div>
-            <div class="col-3">
-                <img src="{{ asset('pagina/img/sponsors/3.jpg') }} " class="img-fluid" alt="">
-            </div>
+        </div>
+
+        <div class="row text-center">
+          <div class="col-6">
+            <img src="{{ asset('pagina/img/sponsors/4.png') }} " class="img-fluid" alt="">
+          </div>
+          <div class="col-6">
+            <img src="{{ asset('pagina/img/sponsors/3.jpg') }} " class="img-fluid" alt="">
+          </div>
         </div>
 
     </section>

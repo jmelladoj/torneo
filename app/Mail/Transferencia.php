@@ -30,8 +30,8 @@ class Transferencia extends Mailable
      */
     public function build()
     {
-        return $this->from('inscripciones@torneoarena.cl')
-                    ->subject('YA FALTA POCO PARA COMPLETAR TU REGISTRO EN TORNEO ARENA 2020')
+        return $this->from('contacto@torneoarena.cl')
+                    ->subject('YA FALTA POCO PARA COMPLETAR TU REGISTRO EN ARENA 2020')
                     ->view('mail.transferencia')
                     ->with([
                         'atleta' => $this->atleta

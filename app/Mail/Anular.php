@@ -30,7 +30,7 @@ class Anular extends Mailable
      */
     public function build()
     {
-        return $this->from('inscripciones@torneoarena.cl')
+        return $this->from('contacto@torneoarena.cl')
                     ->subject('LO SENTIMOS')
                     ->view('mail.anular')
                     ->with([
