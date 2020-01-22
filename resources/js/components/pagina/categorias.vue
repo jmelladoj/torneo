@@ -189,13 +189,13 @@
                     <ul>
                         <li>Una vez realizado el pago y dentro de las próximas horas te enviaremos un correo de confirmación validando que ya estas inscrito correctamente.</li>
                         <li>El solo hecho de de haber  completado el formulario de registro no es válido como inscripción ni como reserva de cupos.</li>
-                        <li>La inscripción debe ser pagada en su totalidad, en caso de duplas y tríos, y tríos no se puede pagar de forma individual.</li>
+                        <li>La inscripción debe ser pagada en su totalidad, en caso de duplas y tríos, no se puede pagar de forma individual.</li>
                         <li>Recuerda incluir el nombre de los atletas en el comprobante de pago.</li>
                     </ul>
                 </p>
 
                 <p class="text-center">
-                    <b>DE PARTE DEL COMITE ORGANIZADOR, <br>
+                    <b>DE PARTE DE LA ORGANIZACIÓN, <br>
                     GRACIAS POR QUERER FORMAR PARTE DE ARENA 2020</b>
                 </p>
             </b-form>

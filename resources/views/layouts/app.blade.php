@@ -9,6 +9,8 @@
 
     <title>Arena 2020 - Inicio</title>
 
+    <link rel="icon" type="image/png" href="{{ asset('/img/favicon.png') }}">
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/pagina.js') }}" defer></script>
@@ -35,7 +37,7 @@
                     <li><a href="{{ request()->is('/') ? '#galeria' : url('/#galeria') }}">GALERÍA</a></li>
                     <li><a href="{{ request()->is('/') ? '#contacto' : url('/#contacto') }}">CONTACTO</a></li>
                     <li><a href="https://www.instagram.com/torneoarena/?hl=es-la" target="_blank" class="padding-instagram"><i class="fa fa-instagram fa-2x"></i></a></li>
-                    <li class="buy-tickets"><a href="javascript:void(0)">BASES</a></li>
+                    <li class="buy-tickets d-none"><a href="javascript:void(0)">BASES</a></li>
                     </ul>
                 </nav>
             </div>

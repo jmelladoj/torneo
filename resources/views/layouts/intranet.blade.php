@@ -9,6 +9,8 @@
 
     <title>Arena - Intranet</title>
 
+    <link rel="icon" type="image/png" href="{{ asset('/img/favicon.png') }}">
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/intranet.js') }}" defer></script>

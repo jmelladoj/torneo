@@ -27,12 +27,12 @@
     <p style="font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px">
         - Una vez realizado el pago y dentro de las próximas horas te enviaremos un correo de confirmación validando que ya estas inscrito correctamente.<br>
         - El solo hecho de de haber  completado el formulario de registro no es válido como inscripción ni como reserva de cupos.
-        - La inscripción debe ser pagada en su totalidad, en caso de duplas y tríos, y tríos no se puede pagar de forma individual.
+        - La inscripción debe ser pagada en su totalidad, en caso de duplas y tríos, no se puede pagar de forma individual.
         - Recuerda incluir el nombre de los atletas en el comprobante de pago.
     </p>
 
     <p style="font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px">
-        <b>DE PARTE DEL COMITE ORGANIZADOR, GRACIAS POR QUERER FORMAR PARTE DE TORNEO ARENA 2019</b><br><br><br><br>
+        <b>DE PARTE DE LA ORGANIZACIÓN, GRACIAS POR QUERER FORMAR PARTE DE TORNEO ARENA 2019</b><br><br><br><br>
         <img src="{{ asset('img/logo-arena.png') }}" alt="" height="150" width="auto">
     </p>
 </body>
