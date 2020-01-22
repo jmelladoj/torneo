@@ -23,6 +23,7 @@ Auth::routes();
 
 //Ruta de usuario
 Route::get('/usuario/logeado', 'UsuarioController@logeado')->name('Usuario logeado');
+Route::get('/categorias/pagina', 'CategoriaController@index_pagina')->name('Listar categorias');
 
 //Rutas de lugares
 Route::get('/poleras', 'PoleraController@index')->name('Listar poleras');
@@ -38,7 +39,8 @@ Route::post('/categoria/borrar', 'CategoriaController@borrar')->name('Borrar cat
 //Rutas de atletas
 Route::get('/atletas/categoria/{id}', 'AtletaController@index_categoria')->name('Listar atletas por categoria');
 Route::post('/atletas/admin/agregar', 'AtletaController@agregar_admin')->name('Agregar atleta');
-Route::post('/atletas/usuario/agregar', 'AtletaController@agregar_usuario')->name('Agregar atleta webpay');
+Route::post('/atletas/usuario/agregar/webpay', 'AtletaController@agregar_usuario_webpay')->name('Agregar atleta webpay');
+Route::post('/atletas/usuario/agregar/transferencia', 'AtletaController@agregar_usuario_transferencia')->name('Agregar atleta transferencia');
 //Route::post('/categoria/borrar', 'AtletaController@borrar')->name('Borrar categoria');
 
 //Rutas de categorias

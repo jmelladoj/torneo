@@ -32,8 +32,8 @@
     </p>
 
     <p style="font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px">
-        <b>DE PARTE DEL COMITE ORGANIZADOR, GRACIAS POR QUERER FORMAR PARTE DE TORNEO ARENA 2019</b><br><br>
-        <img src="{{ asset('img/logo-arena.png') }}" alt="" height="200" width="auto">
+        <b>DE PARTE DEL COMITE ORGANIZADOR, GRACIAS POR QUERER FORMAR PARTE DE TORNEO ARENA 2019</b><br><br><br><br>
+        <img src="{{ asset('img/logo-arena.png') }}" alt="" height="150" width="auto">
     </p>
 </body>
 </html>

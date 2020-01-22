@@ -11,7 +11,7 @@ class Categoria extends Model
     use SoftDeletes;
 
     protected $guarded = ['id'];
-    protected $appends = ['categoria_nombre'];
+    protected $appends = ['categoria_nombre', 'cupos_usados'];
 
     public function getCategoriaNombreAttribute(){
         switch ($this->categoria) {
@@ -25,5 +25,9 @@ class Categoria extends Model
                 return 'TRÍOS';
                 break;
         }
+    }
+
+    public function getCuposUsadosAttribute(){
+        return $this->hasMany(Atleta::class)->count();
     }
 }

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Atleta;
+use App\Categoria;
 use App\Mail\Anular;
 use App\Mail\Confirmacion;
+use App\Mail\Transbank;
 use App\Venta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -74,6 +76,7 @@ class VentaController extends Controller
 
         $venta = Venta::where('token', $request->token_ws)->first();
         $atleta = Atleta::find($venta->atleta_id);
+        $categoria = Categoria::find($atleta->categoria_id);
 
         if($response->detailOutput->responseCode == 0){
             if($atleta->nombre_equipo != 'SIN EQUIPO'){
@@ -87,6 +90,8 @@ class VentaController extends Controller
             $venta->save();
 
             Mail::to($atleta->correo)->send(new Confirmacion($atleta));
+            Mail::to('pagos@torneoarena.cl')->send(new Transbank($atleta, $categoria->CategoriaNombre . ' ' . $categoria->nombre, $categoria->valor));
+
         } else {
             $venta->delete();
 

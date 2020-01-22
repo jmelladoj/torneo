@@ -148,7 +148,7 @@
                             'accion': accion
                         }).then(function (response) {
                             me.listar_ventas();
-                            me.$store.commit('msg_success', accion == 0 ? 'Venta confirmada exitosamente.' : 'Venta marcada como pendiente de pago')
+                            me.$store.commit('msg_success', accion == 1 ? 'Venta confirmada exitosamente.' : 'Venta marcada como pendiente de pago')
                         }).catch(function (error) {
                             console.log(error);
                         })

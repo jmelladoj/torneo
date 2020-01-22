@@ -3758,7 +3758,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             'accion': accion
           }).then(function (response) {
             me.listar_ventas();
-            me.$store.commit('msg_success', accion == 0 ? 'Venta confirmada exitosamente.' : 'Venta marcada como pendiente de pago');
+            me.$store.commit('msg_success', accion == 1 ? 'Venta confirmada exitosamente.' : 'Venta marcada como pendiente de pago');
           })["catch"](function (error) {
             console.log(error);
           });
@@ -4102,11 +4102,53 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      individuales: [],
+      duplas: [],
+      trios: [],
       categoria: [],
       categoria_seleccionada: null,
       categorias: [],
@@ -4118,7 +4160,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         email: ''
       },
       modal_inscripcion: {
-        titulo: ''
+        titulo: '',
+        estado: 0
       }
     };
   },
@@ -4163,23 +4206,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }
   },
-  computed: {
-    individuales: function individuales() {
-      return this.categorias.filter(function (c) {
-        return c.categoria == 1;
-      });
-    },
-    duplas: function duplas() {
-      return this.categorias.filter(function (c) {
-        return c.categoria == 2;
-      });
-    },
-    trios: function trios() {
-      return this.categorias.filter(function (c) {
-        return c.categoria == 3;
-      });
-    }
-  },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapMutations"])(['msg_success', 'msg_error']), {
     listar_tallas: function listar_tallas() {
       var me = this;
@@ -4191,8 +4217,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     listar_categorias: function listar_categorias() {
       var me = this;
-      axios.get('/categorias/atletas').then(function (response) {
-        me.categorias = response.data.categorias;
+      axios.get('/categorias/pagina').then(function (response) {
+        me.individuales = response.data.individuales;
+        me.duplas = response.data.duplas;
+        me.trios = response.data.trios;
       })["catch"](function (error) {
         console.log(error);
       });
@@ -4223,26 +4251,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     limpiar_datos_registro: function limpiar_datos_registro() {
       this.registro_atleta.nombre_equipo = '';
-      this.registro_atleta.blox = '';
+      this.registro_atleta.box = '';
       this.registro_atleta.email = '';
       this.registro_atleta.atletas = [];
+      this.modal_inscripcion.titulo = '';
+      this.modal_inscripcion.estado = 0;
       this.$v.$reset();
     },
-    inscripcion: function inscripcion() {
+    inscripcion_webpay: function inscripcion_webpay() {
       if (this.$v.registro_atleta.$invalid) {
         this.$v.registro_atleta.$touch();
         return;
       }
 
       var me = this;
-      axios.post('/atletas/usuario/agregar', {
+      axios.post('/atletas/usuario/agregar/webpay', {
         'categoria_id': me.categoria.id,
         'nombre_equipo': me.registro_atleta.nombre_equipo,
         'atletas': me.registro_atleta.atletas,
         'box': me.registro_atleta.box,
         'email': me.registro_atleta.email
       }).then(function (response) {
-        //me.listar_categorias()
+        me.listar_categorias();
         var form = document.createElement("form");
         var input_token = document.createElement("input");
         form.method = "POST";
@@ -4252,6 +4282,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         form.appendChild(input_token);
         document.body.appendChild(form);
         form.submit();
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    inscripcion_transferencia: function inscripcion_transferencia() {
+      if (this.$v.registro_atleta.$invalid) {
+        this.$v.registro_atleta.$touch();
+        return;
+      }
+
+      var me = this;
+      axios.post('/atletas/usuario/agregar/transferencia', {
+        'categoria_id': me.categoria.id,
+        'nombre_equipo': me.registro_atleta.nombre_equipo,
+        'atletas': me.registro_atleta.atletas,
+        'box': me.registro_atleta.box,
+        'email': me.registro_atleta.email
+      }).then(function (response) {
+        me.listar_categorias();
+        me.modal_inscripcion.titulo = 'Ya falta poco para completar tu registro en ARENA 2020';
+        me.modal_inscripcion.estado = 1;
       })["catch"](function (error) {
         console.log(error);
       });
@@ -81694,6 +81745,16 @@ var render = function() {
         [
           _c(
             "b-form",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.modal_inscripcion.estado == 0,
+                  expression: "modal_inscripcion.estado == 0"
+                }
+              ]
+            },
             [
               _c(
                 "b-row",
@@ -82129,20 +82190,170 @@ var render = function() {
           ),
           _vm._v(" "),
           _c(
+            "b-form",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.modal_inscripcion.estado == 1,
+                  expression: "modal_inscripcion.estado == 1"
+                }
+              ]
+            },
+            [
+              _c("p", { staticClass: "text-justify" }, [
+                _vm._v(
+                  "\n                Para finalizar debes pagar tu inscripción en la categoría "
+                ),
+                _c("b", [
+                  _vm._v(
+                    " " +
+                      _vm._s(
+                        _vm.categoria.categoria_nombre +
+                          " " +
+                          _vm.categoria.nombre
+                      ) +
+                      " "
+                  )
+                ]),
+                _vm._v(
+                  " por medio de una transferencia bancaria con los datos que se indican a continuación:\n            "
+                )
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "text-justify" }, [
+                _c("b", [
+                  _vm._v(
+                    "Recuerda que en esta opción debes enviar el comprobante de transferencia a "
+                  ),
+                  _c("a", { attrs: { href: "javascript:void(0)" } }, [
+                    _vm._v("pagos@torneoarena.cl")
+                  ]),
+                  _vm._v(
+                    ", indicando correctamente en el asunto tu nombre (la de la dupla o trío) y categoría"
+                  )
+                ]),
+                _vm._v("). "),
+                _c("br"),
+                _c("br"),
+                _vm._v(
+                  "\n                El valor a transferir según la categoría es de: "
+                ),
+                _c("b", [_vm._v("INDIVIDUAL $35.000")]),
+                _vm._v(". "),
+                _c("b", [_vm._v("DUPLAS $70.000")]),
+                _vm._v(" y "),
+                _c("b", [_vm._v("TRÍOS $105.000")]),
+                _vm._v(", y los datos de transferencia son:\n            ")
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "text-center" }, [
+                _c("strong", [
+                  _c("b", [
+                    _vm._v(
+                      "\n                        VIVALLOS Y ARIAS LIMITADA"
+                    ),
+                    _c("br"),
+                    _vm._v(
+                      "\n                        CUENTA CORRIENTE BANCO BCI"
+                    ),
+                    _c("br"),
+                    _vm._v("\n                        Nº 61991431"),
+                    _c("br"),
+                    _vm._v("\n                        R.U.T. 76.691.998-7"),
+                    _c("br"),
+                    _vm._v(
+                      "\n                        pagos@torneoarena.cl\n                    "
+                    )
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("p", [
+                _c("ul", [
+                  _c("li", [
+                    _vm._v(
+                      "Una vez realizado el pago y dentro de las próximas horas te enviaremos un correo de confirmación validando que ya estas inscrito correctamente."
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _vm._v(
+                      "El solo hecho de de haber  completado el formulario de registro no es válido como inscripción ni como reserva de cupos."
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _vm._v(
+                      "La inscripción debe ser pagada en su totalidad, en caso de duplas y tríos, y tríos no se puede pagar de forma individual."
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _vm._v(
+                      "Recuerda incluir el nombre de los atletas en el comprobante de pago."
+                    )
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "text-center" }, [
+                _c("b", [
+                  _vm._v("DE PARTE DEL COMITE ORGANIZADOR, "),
+                  _c("br"),
+                  _vm._v(
+                    "\n                GRACIAS POR QUERER FORMAR PARTE DE ARENA 2020"
+                  )
+                ])
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
             "template",
             { slot: "modal-footer" },
             [
               _c(
                 "b-button",
                 {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.modal_inscripcion.estado == 0,
+                      expression: "modal_inscripcion.estado == 0"
+                    }
+                  ],
                   attrs: {
                     disabled: _vm.$v.registro_atleta.$invalid,
                     size: "md",
                     variant: "success"
                   },
-                  on: { click: _vm.inscripcion }
+                  on: { click: _vm.inscripcion_webpay }
                 },
-                [_vm._v(" Ir a pagar ")]
+                [_vm._v(" Pagar con webpay ")]
+              ),
+              _vm._v(" "),
+              _c(
+                "b-button",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.modal_inscripcion.estado == 0,
+                      expression: "modal_inscripcion.estado == 0"
+                    }
+                  ],
+                  attrs: {
+                    disabled: _vm.$v.registro_atleta.$invalid,
+                    size: "md",
+                    variant: "info"
+                  },
+                  on: { click: _vm.inscripcion_transferencia }
+                },
+                [_vm._v(" Pagar con transferencia ")]
               ),
               _vm._v(" "),
               _c(

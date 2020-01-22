@@ -12,6 +12,26 @@ class CategoriaController extends Controller
         return ['categorias' => Categoria::orderBy('categoria', 'asc')->orderBy('nombre', 'asc')->get()];
     }
 
+    public function index_pagina(){
+        $individuales = Categoria::where('categoria', 1)->orderBy('categoria', 'asc')->orderBy('nombre', 'asc')->get()->filter(function($c) {
+            return $c->cuposUsados < $c->cupos;
+        });
+
+        $duplas = Categoria::where('categoria', 2)->orderBy('categoria', 'asc')->orderBy('nombre', 'asc')->get()->filter(function($c) {
+            return $c->cuposUsados < $c->cupos;
+        });
+
+        $trios = Categoria::where('categoria', 3)->orderBy('categoria', 'asc')->orderBy('nombre', 'asc')->get()->filter(function($c) {
+            return $c->cuposUsados < $c->cupos;
+        });
+
+        return  [
+                    'individuales' => $individuales,
+                    'duplas' => $duplas,
+                    'trios' => $trios,
+                ];
+    }
+
     public function categoria_espicifica($id){
         return ['categoria' => Categoria::where('id', $id)->first()];
     }
