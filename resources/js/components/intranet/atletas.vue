@@ -543,7 +543,7 @@
             this.obtener_registros()
             this.cargar_campos_tabla()
 
-            Event.$on('refrescar', (id) => {
+            Evento.$on('refrescar', (id) => {
                 this.obtener_registros()
                 this.cargar_campos_tabla()
             })

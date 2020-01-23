@@ -4,6 +4,52 @@
 
         <b-row>
             <b-col>
+                <b-card-group>
+                    <b-card class="mt-0 mb-0">
+                            <b-col cols="12">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h4><i class="fa fa-usd"></i></h4>
+                                        <h6 class="text-muted"><b>Recaudado</b></h6>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <h4 class="counter text-primary">{{ recaudado | currency }}</h4>
+                                    </div>
+                                </div>
+                            </b-col>
+                    </b-card>
+                    <b-card class="mt-0 mb-0">
+                            <b-col cols="12">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h4><i class="fa fa-usd"></i></h4>
+                                        <h6 class="text-muted"><b>Webpay</b></h6>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <h4 class="counter text-primary">{{ webpay | currency }}</h4>
+                                    </div>
+                                </div>
+                            </b-col>
+                    </b-card>
+                    <b-card class="mt-0 mb-0">
+                        <b-col cols="12">
+                            <div class="d-flex no-block align-items-center">
+                                <div>
+                                    <h4><i class="fa fa-usd"></i></h4>
+                                    <h6 class="text-muted"><b>Transferencia</b></h6>
+                                </div>
+                                <div class="ml-auto">
+                                    <h4 class="counter text-primary">{{ transferencia | currency }}</h4>
+                                </div>
+                            </div>
+                        </b-col>
+                    </b-card>
+                </b-card-group>
+            </b-col>
+        </b-row>
+
+        <b-row>
+            <b-col>
                 <b-card>
                     <b-row>
                         <b-col lg="6" class="my-1">
@@ -108,6 +154,35 @@
             }
         },
         computed: {
+            recaudado(){
+                var total = 0
+
+                this.items.forEach(i => total += i.monto_pago);
+
+                return total
+            },
+            webpay(){
+                var total = 0
+
+                this.items.forEach(function(i) {
+                    if(!i.token){
+                        total += i.monto_pago
+                    }
+                });
+
+                return total
+            },
+            transferencia(){
+                var total = 0
+
+                this.items.forEach(function(i) {
+                    if(i.token){
+                        total += i.monto_pago
+                    }
+                });
+
+                return total      
+            },
             sortOptions() {
                 return this.fields.filter(f => f.sortable).map(f => {
                     return { text: f.label, value: f.key }
