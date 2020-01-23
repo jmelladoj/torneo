@@ -113,7 +113,7 @@
             ...mapActions('usuario', ['salir']),
             ...mapMutations('usuario', ['actualizar']),
             actualizar_datos(){
-                Event.$emit('refrescar');
+                Evento.$emit('refrescar');
             },
             listar_categorias(){
                 let me = this

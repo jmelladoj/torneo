@@ -56,7 +56,7 @@
             <b-form v-show="modal_inscripcion.estado == 0">
                 <b-row>
                     <b-col xs="12" sm="12" md="6">
-                        <b-form-group label="Email encargado">
+                        <b-form-group :label="categoria.categoria == 1 ? 'Email' : 'Email encargado'">
                             <b-form-input
                                 v-model="$v.registro_atleta.email.$model"
                                 :state="$v.registro_atleta.email.$dirty ? !$v.registro_atleta.email.$error : null"

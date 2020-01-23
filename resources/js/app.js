@@ -8,7 +8,7 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 window.swal = require('sweetalert2');
-window.Event = new Vue ();
+window.Evento = new Vue ();
 
 //Componentes
 import Vuelidate from 'vuelidate'
