@@ -118,11 +118,11 @@
                         </template>
 
                         <template v-slot:cell(acciones)="row">
-                            <b-button size="xs" variant="warning" title="Actualizar información" @click="abrir_modal_atleta(row.item)">
+                            <!--<b-button size="xs" variant="warning" title="Actualizar información" @click="abrir_modal_atleta(row.item)">
                                 <i class="fa fa-pencil"></i>
-                            </b-button>
+                            </b-button>-->
 
-                            <b-button size="xs" variant="danger" title="Eliminar registro" @click="borrar(row.item.id)">
+                            <b-button v-show="row.item.encargado == 1" size="xs" variant="danger" title="Eliminar registro" @click="borrar(row.item.id)">
                                 <i class="fa fa-trash"></i>
                             </b-button>
                         </template>
@@ -204,7 +204,7 @@
                 </b-row>
                 <b-row v-for="(atleta, index) in registro_atleta.atletas" :key="index">
                     <b-col xs="12" sm="12" md="12">
-                        <h6 class="text-right" v-text="'Datos atleta ' + (index + 1)"></h6>
+                        <strong><h6 class="text-center" v-text="'Datos atleta ' + (index + 1)"></h6></strong>
                     </b-col>
                     <b-col xs="12" sm="12" md="6">
                         <b-form-group label="Run atleta">
@@ -216,7 +216,8 @@
                             ></b-form-input>
 
                             <b-form-invalid-feedback :id="'atleta-run' + index">
-                                Campo de texto, mínimo de 3 caracteres.
+                                <span class="text-justify" v-show="$v.registro_atleta.atletas.$each[index].run.isUnique == false">Tu run ya se encuentra inscrito en alguna categoría, si esto no es así, por favor envianos un mail a contacto@torneoarena.cl</span>
+                                <span v-show="$v.registro_atleta.atletas.$each[index].run.isUnique == true">Campo de texto, mínimo de 7 caracteres.</span>
                             </b-form-invalid-feedback>
                         </b-form-group>
                     </b-col>
@@ -352,7 +353,13 @@
                     $each: {
                         run: {
                             required,
-                            minLength: minLength(3)
+                            minLength: minLength(7),
+                            async isUnique (value) {
+                                if (value === '' || value.length < 7) return true
+
+                                const response = await fetch(`/atletas/unico/${value}`)
+                                return await response.json()
+                            }
                         },
                         nombre: {
                             required,
@@ -536,6 +543,29 @@
                     me.$store.commit('msg_success', 'Registro agregado exitosamente.')
                 }).catch(function (error) {
                     console.log(error)
+                })
+            },
+            borrar(id){
+                swal.fire({
+                    title: '¿Deseas borrar al atleta?',
+                    text: "¡No podrás revertir esto!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, ¡bórrar!'
+                }).then((result) => {
+                    if (result.value) {
+                        let me = this
+                        axios.post('/atleta/borrar',{
+                            'id': id
+                        }).then(function (response) {
+                            me.obtener_registros();
+                            me.$store.commit('msg_success', 'Registro eliminado exitosamente.')
+                        }).catch(function (error) {
+                            console.log(error);
+                        })
+                    }
                 })
             }
         },

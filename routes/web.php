@@ -41,7 +41,8 @@ Route::get('/atletas/categoria/{id}', 'AtletaController@index_categoria')->name(
 Route::post('/atletas/admin/agregar', 'AtletaController@agregar_admin')->name('Agregar atleta');
 Route::post('/atletas/usuario/agregar/webpay', 'AtletaController@agregar_usuario_webpay')->name('Agregar atleta webpay');
 Route::post('/atletas/usuario/agregar/transferencia', 'AtletaController@agregar_usuario_transferencia')->name('Agregar atleta transferencia');
-//Route::post('/categoria/borrar', 'AtletaController@borrar')->name('Borrar categoria');
+Route::post('/atleta/borrar', 'AtletaController@borrar')->name('Borrar atleta');
+Route::get('/atletas/unico/{texto}', 'AtletaController@validar_unico')->name('Unico atleta');
 
 //Rutas de categorias
 Route::get('/ventas/torneo', 'VentaController@index')->name('Listar ventas');

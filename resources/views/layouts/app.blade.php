@@ -37,7 +37,7 @@
                     <li><a href="{{ request()->is('/') ? '#galeria' : url('/#galeria') }}">GALERÍA</a></li>
                     <li><a href="{{ request()->is('/') ? '#contacto' : url('/#contacto') }}">CONTACTO</a></li>
                     <li><a href="https://www.instagram.com/torneoarena/?hl=es-la" target="_blank" class="padding-instagram"><i class="fa fa-instagram fa-2x"></i></a></li>
-                    <li class="buy-tickets d-none"><a href="javascript:void(0)">BASES</a></li>
+                    <li class="buy-tickets"><a href="{{ url('/bases.pdf') }}" download>BASES</a></li>
                     </ul>
                 </nav>
             </div>

@@ -109,7 +109,8 @@
                             ></b-form-input>
 
                             <b-form-invalid-feedback :id="'atleta-run' + index">
-                                Campo de texto, mínimo de 3 caracteres.
+                                <span class="text-justify" v-show="$v.registro_atleta.atletas.$each[index].run.isUnique == false">Tu run ya se encuentra inscrito en alguna categoría, si esto no es así, por favor envianos un mail a contacto@torneoarena.cl</span>
+                                <span v-show="$v.registro_atleta.atletas.$each[index].run.isUnique == true">Campo de texto, mínimo de 7 caracteres.</span>
                             </b-form-invalid-feedback>
                         </b-form-group>
                     </b-col>
@@ -257,7 +258,13 @@
                     $each: {
                         run: {
                             required,
-                            minLength: minLength(3)
+                            minLength: minLength(7),
+                            async isUnique (value) {
+                                if (value === '' || value.length < 7) return true
+
+                                const response = await fetch(`/atletas/unico/${value}`)
+                                return await response.json()
+                            }
                         },
                         nombre: {
                             required,

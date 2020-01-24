@@ -17,7 +17,11 @@ class AtletaController extends Controller
 {
     //
     public function index_categoria($id){
-        return ['atletas' => Atleta::where('categoria_id', $id)->orderBy('nombre', 'asc')->get()];
+        return ['atletas' => Atleta::where('categoria_id', $id)->orderBy('nombre_equipo', 'asc')->orderBy('nombre', 'asc')->get()];
+    }
+
+    public function validar_unico($texto){
+        return json_encode(Atleta::where('run', $texto)->get()->count() > 0 ? false : true);
     }
 
     public function agregar_admin(Request $request){
@@ -186,5 +190,16 @@ class AtletaController extends Controller
                 'monto_pago' => $categoria->valor
             ]);
         //});
+    }
+
+    public function borrar(Request $request) {
+        $atleta = Atleta::find($request->id);
+        Venta::where('atleta_id', $atleta->id)->delete();
+
+        if($atleta->nombre_equipo != 'SIN EQUIPO'){
+            Atleta::where('nombre_equipo', $atleta->nombre_equipo)->where('created_at', $atleta->created_at)->delete();
+        } else {
+            $atleta->delete();
+        }
     }
 }

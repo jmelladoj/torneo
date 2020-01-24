@@ -165,7 +165,7 @@
                 var total = 0
 
                 this.items.forEach(function(i) {
-                    if(!i.token){
+                    if(i.token){
                         total += i.monto_pago
                     }
                 });
@@ -176,12 +176,12 @@
                 var total = 0
 
                 this.items.forEach(function(i) {
-                    if(i.token){
+                    if(!i.token){
                         total += i.monto_pago
                     }
                 });
 
-                return total      
+                return total
             },
             sortOptions() {
                 return this.fields.filter(f => f.sortable).map(f => {
