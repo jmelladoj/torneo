@@ -241,7 +241,7 @@
                                 :state="$v.registro_atleta.atletas.$each[index].polera.$dirty ? !$v.registro_atleta.atletas.$each[index].polera.$error : null"
                                 :aria-describedby="'atleta-polera' + index">
 
-                                <option :value="null">Selecciona una opción ...</option>
+                                <option :value="null">Por definir</option>
                                 <option v-for="polera in poleras" :key="polera.id" :value="polera.id" v-text="polera.talla"></option>
                             </b-form-select>
 
@@ -353,26 +353,17 @@
                     $each: {
                         run: {
                             required,
-                            minLength: minLength(7),
-                            async isUnique (value) {
-                                if (value === '' || value.length < 7) return true
-
-                                const response = await fetch(`/atletas/unico/${value}`)
-                                return await response.json()
-                            }
+                            minLength: minLength(7)
                         },
                         nombre: {
                             required,
                             minLength: minLength(3)
                         },
                         polera: {
-                            required,
-                            minValue: minValue(1)
+
                         },
                         fecha_nacimiento: {
-                            required: requiredIf(function () {
-                                return this.categoria.limitancia_edad == 1 ? true : false
-                            })
+
                         }
                     }
                 }
@@ -507,8 +498,8 @@
 
                 for (var i = 0; i < this.categoria_seleccionada; i++) {
                     var atleta = new Object()
-                    atleta.nombre = ''
-                    atleta.run = ''
+                    atleta.nombre = 'POR DEFINIR'
+                    atleta.run = '9.999.999-9'
                     atleta.polera = null
                     atleta.fecha_nacimiento = null
                     me.registro_atleta.atletas.push(atleta)
@@ -516,7 +507,7 @@
             },
             limpiar_datos_registro() {
                 this.registro_atleta.nombre_equipo = ''
-                this.registro_atleta.blox = ''
+                this.registro_atleta.box = ''
                 this.registro_atleta.email = ''
                 this.registro_atleta.atletas = []
                 this.registro_atleta.tipo_pago = 0

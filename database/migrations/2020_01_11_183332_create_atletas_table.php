@@ -23,7 +23,7 @@ class CreateAtletasTable extends Migration
             $table->string('fecha_nacimiento')->nullable()->default('SIN FECHA');
             $table->string('box')->default('SIN BOX');
 
-            $table->unsignedBigInteger('polera_id');
+            $table->unsignedBigInteger('polera_id')->nullable()->default(null);
             $table->foreign('polera_id')->references('id')->on('poleras');
 
             $table->unsignedBigInteger('categoria_id');
