@@ -53,6 +53,10 @@
                             {{ data.index + 1 }}
                         </template>
 
+                        <template v-slot:cell(distribucion)="data">
+                            <label>H :</label>
+                            <label>M: </label>
+                        </template>
 
                         <template v-slot:cell(acciones)="row">
                             <b-button size="xs" variant="warning" title="Actualizar información" @click="abrir_modal_polera(row.item)">
@@ -109,6 +113,7 @@
                     { key: 'index', label: '#', sortable: true, class: 'text-center' },
                     { key: 'talla', label: 'Nombre', sortable: true, class: 'text-left' },
                     { key: 'cantidad_poleras', label: 'Cantidad poleras', sortable: true, class: 'text-left' },
+                    { key: 'distribucion', label: 'Distribución', sortable: true, class: 'text-left' },
                     { key: 'acciones', label: 'Acciones', class: 'text-center'}
                 ],
                 totalRows: 1,

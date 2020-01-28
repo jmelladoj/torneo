@@ -86,7 +86,7 @@
                     'email': me.login.usuario,
                     'password': me.login.password
                 }).then(function (response) {
-                    window.location.href = "/tallas"
+                    window.location.href = "/ventas"
                 }).catch(function (error) {
                     if (error.response.status == 422){
                         me.login.password = ''

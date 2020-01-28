@@ -103,7 +103,7 @@
                             {{ data.item.valor  | currency }}
                         </template>
 
-                        <template v-slot:cell(cupos)="data">
+                        <template v-slot:cell(cupos_categoria)="data">
                             {{ data.item.cupos / data.item.categoria }}
                         </template>
 
@@ -234,9 +234,9 @@
                     { key: 'nombre', label: 'Nombre', sortable: true, class: 'text-left' },
                     { key: 'categoria_nombre', label: 'Categoría', sortable: true, class: 'text-left' },
                     { key: 'valor', label: 'Valor', sortable: true, class: 'text-left' },
-                    { key: 'cupos', label: 'Cupos', sortable: true, class: 'text-left' },
+                    { key: 'cupos_categoria', label: 'Cupos', sortable: true, class: 'text-left' },
                     { key: 'cupos', label: 'Total', sortable: true, class: 'text-left' },
-                    { key: 'inscritos', label: 'Inscritos', sortable: true, class: 'text-left' },
+                    { key: 'cupos_usados', label: 'Inscritos', sortable: true, class: 'text-left' },
                     { key: 'acciones', label: 'Acciones', class: 'text-center'}
                 ],
                 totalRows: 1,

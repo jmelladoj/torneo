@@ -8,6 +8,7 @@ import Tallas from './components/intranet/tallas.vue'
 import Categorias from './components/intranet/categorias.vue'
 import Atletas from './components/intranet/atletas.vue'
 import Ventas from './components/intranet/ventas.vue'
+import Escritorio from './components/intranet/escritorio.vue'
 
 export default new VueRouter({
     routes: [
@@ -31,6 +32,11 @@ export default new VueRouter({
             path: '/ventas',
             name: 'ventas',
             component: Ventas
+        },
+        {
+            path: '/escritorio',
+            name: 'escritorio',
+            component: Escritorio
         },
     ],
     mode: 'history'

@@ -16,6 +16,10 @@ use Freshwork\Transbank\RedirectorHelper;
 class AtletaController extends Controller
 {
     //
+    public function index_admin(){
+        return ['atletas' => Atleta::where('pago', 1)->orWhere('invitado', 1)->orderBy('categoria_id', 'asc')->orderBy('nombre_equipo', 'asc')->orderBy('nombre', 'asc')->get()];
+    }
+
     public function index_categoria($id){
         return ['atletas' => Atleta::where('categoria_id', $id)->orderBy('nombre_equipo', 'asc')->orderBy('nombre', 'asc')->get()];
     }
@@ -38,7 +42,7 @@ class AtletaController extends Controller
                             'correo' => $request->email,
                             'encargado' => 1,
                             'fecha_nacimiento' => $request->atletas[$i]['fecha_nacimiento'] != null ? $request->atletas[$i]['fecha_nacimiento'] : 'SIN FECHA',
-                            'box' => $request->box,
+                            'box' => $request->box == '' ? 'SIN BOX' : $request->box,
                             'polera_id' => $request->atletas[$i]['polera'],
                             'categoria_id' => $request->categoria_id,
                             'invitado' =>  $request->tipo_pago
@@ -53,6 +57,7 @@ class AtletaController extends Controller
                             'nombre' => $request->atletas[$i]['nombre'],
                             'correo' => $i == 0 ? $request->email : 'SIN CORREO',
                             'encargado' => $i == 0 ? 1 : 0,
+                            'box' => $request->box == '' ? 'SIN BOX' : $request->box,
                             'nombre_equipo' => $request->nombre_equipo != null ? $request->nombre_equipo : 'SIN EQUIPO',
                             'polera_id' => $request->atletas[$i]['polera'],
                             'categoria_id' => $request->categoria_id,
@@ -95,7 +100,7 @@ class AtletaController extends Controller
                             'correo' => $request->email,
                             'encargado' => 1,
                             'fecha_nacimiento' => $request->atletas[$i]['fecha_nacimiento'] != null ? $request->atletas[$i]['fecha_nacimiento'] : 'SIN FECHA',
-                            'box' => $request->box,
+                            'box' => $request->box == '' ? 'SIN BOX' : $request->box,
                             'polera_id' => $request->atletas[$i]['polera'],
                             'categoria_id' => $request->categoria_id,
                         ]
@@ -109,6 +114,7 @@ class AtletaController extends Controller
                             'nombre' => $request->atletas[$i]['nombre'],
                             'correo' => $i == 0 ? $request->email : 'SIN CORREO',
                             'encargado' => $i == 0 ? 1 : 0,
+                            'box' => $request->box == '' ? 'SIN BOX' : $request->box,
                             'nombre_equipo' => $request->nombre_equipo != null ? $request->nombre_equipo : 'SIN EQUIPO',
                             'polera_id' => $request->atletas[$i]['polera'],
                             'categoria_id' => $request->categoria_id,

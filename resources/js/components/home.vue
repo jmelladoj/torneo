@@ -36,13 +36,13 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <li class="nav-small-cap">--- MENÚ</li>
+                        <li><router-link class="waves-effect waves-dark" to="/ventas"><i class="fa fa fa-usd"></i><span class="hide-menu">Ventas</span></router-link> </li>
+                        <li><router-link class="waves-effect waves-dark" to="/escritorio"><i class="fa fa-bar-chart"></i> <span class="hide-menu">Escritorio</span></router-link></li>
                         <li><router-link class="waves-effect waves-dark" to="/tallas"><i class="fa fa-product-hunt"></i> <span class="hide-menu">Tallas de poleras</span></router-link></li>
                         <li><router-link class="waves-effect waves-dark" to="/categorias"><i class="fa fa fa-bars"></i><span class="hide-menu">Categorías</span></router-link> </li>
-                        <li><router-link class="waves-effect waves-dark" to="/ventas"><i class="fa fa fa-usd"></i><span class="hide-menu">Ventas</span></router-link> </li>
-
                         <li v-if="individuales.length > 0">
-                            <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Indivual</span></a>
-                            <ul aria-expanded="false" class="collapse-in">
+                            <a  @click="agregar_clases('individual')" class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Indivual</span></a>
+                            <ul id="individual_sub_menu" aria-expanded="false" class="collapse">
                                 <li @click="actualizar_datos" v-for="categoria in individuales" :key="categoria.id">
                                     <router-link
                                         :to="{ path: '/atletas/' + categoria.id}"
@@ -52,8 +52,8 @@
                             </ul>
                         </li>
                         <li>
-                            <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Indivual</span></a>
-                            <ul aria-expanded="false" class="collapse-in">
+                            <a @click="agregar_clases('duplas')" class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Duplas</span></a>
+                            <ul id="duplas_sub_menu" aria-expanded="false" class="collapse">
                                 <li @click="actualizar_datos" v-for="categoria in duplas" :key="categoria.id">
                                     <router-link
                                         :to="{ path: '/atletas/' + categoria.id}"
@@ -63,8 +63,8 @@
                             </ul>
                         </li>
                         <li>
-                            <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Tríos</span></a>
-                            <ul aria-expanded="false" class="collapse-in">
+                            <a @click="agregar_clases('trios')" class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Tríos</span></a>
+                            <ul id="trios_sub_menu" aria-expanded="false" class="collapse">
                                 <li @click="actualizar_datos" v-for="categoria in trios" :key="categoria.id">
                                     <router-link
                                         :to="{ path: '/atletas/' + categoria.id}"
@@ -154,9 +154,25 @@
                     console.log(error)
                 });
 
+            },
+            agregar_clases(id){
+                this.limpiar_clases()
+
+                $('#' + id + '_sub_menu').removeClass('collapse')
+                $('#' + id + '_sub_menu').addClass('collapse-in')
+            },
+            limpiar_clases(){
+                $('#individual_sub_menu').removeClass('collapse-in')
+                $('#individual_sub_menu').addClass('collapse')
+
+                $('#duplas_sub_menu').removeClass('collapse-in')
+                $('#duplas_sub_menu').addClass('collapse')
+
+                $('#trios_sub_menu').removeClass('collapse-in')
+                $('#trios_sub_menu').addClass('collapse')
             }
         },
-        mounted(){
+        beforeMount(){
             this.usuario_logeado()
             this.listar_categorias()
         }

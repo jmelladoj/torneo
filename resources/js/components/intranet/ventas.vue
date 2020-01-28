@@ -50,6 +50,52 @@
 
         <b-row>
             <b-col>
+                <b-card-group>
+                    <b-card class="mt-0 mb-0">
+                            <b-col cols="12">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h4><i class="fa fa-list"></i></h4>
+                                        <h6 class="text-muted"><b>Cantidad ventas</b></h6>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <h4 class="counter text-primary">{{ items.length }}</h4>
+                                    </div>
+                                </div>
+                            </b-col>
+                    </b-card>
+                    <b-card class="mt-0 mb-0">
+                            <b-col cols="12">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h4><i class="fa fa-list"></i></h4>
+                                        <h6 class="text-muted"><b>Cantidad Webpay</b></h6>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <h4 class="counter text-primary">{{ cantidad_webpay }}</h4>
+                                    </div>
+                                </div>
+                            </b-col>
+                    </b-card>
+                    <b-card class="mt-0 mb-0">
+                        <b-col cols="12">
+                            <div class="d-flex no-block align-items-center">
+                                <div>
+                                    <h4><i class="fa fa-list"></i></h4>
+                                    <h6 class="text-muted"><b>Cantidad transferencias</b></h6>
+                                </div>
+                                <div class="ml-auto">
+                                    <h4 class="counter text-primary">{{ cantidad_transferencia }}</h4>
+                                </div>
+                            </div>
+                        </b-col>
+                    </b-card>
+                </b-card-group>
+            </b-col>
+        </b-row>
+
+        <b-row>
+            <b-col>
                 <b-card>
                     <b-row>
                         <b-col lg="6" class="my-1">
@@ -155,33 +201,19 @@
         },
         computed: {
             recaudado(){
-                var total = 0
-
-                this.items.forEach(i => total += i.monto_pago);
-
-                return total
+                return this.items.reduce((total, v) => total += parseInt(v.monto_pago), 0)
             },
             webpay(){
-                var total = 0
-
-                this.items.forEach(function(i) {
-                    if(i.token){
-                        total += i.monto_pago
-                    }
-                });
-
-                return total
+                return this.items.reduce((total, v) => total += v.token ? parseInt(v.monto_pago) : 0, 0)
             },
             transferencia(){
-                var total = 0
-
-                this.items.forEach(function(i) {
-                    if(!i.token){
-                        total += i.monto_pago
-                    }
-                });
-
-                return total
+                return this.items.reduce((total, v) => total += !v.token ? parseInt(v.monto_pago) : 0, 0)
+            },
+            cantidad_webpay(){
+                return this.items.reduce((total, v) => total += v.token ? 1 : 0, 0)
+            },
+            cantidad_transferencia(){
+                return this.items.reduce((total, v) => total += !v.token ? 1 : 0, 0)
             },
             sortOptions() {
                 return this.fields.filter(f => f.sortable).map(f => {

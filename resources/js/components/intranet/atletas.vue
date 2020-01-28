@@ -298,7 +298,7 @@
                     tipo_pago: 0,
                     atletas: [],
                     box: '',
-                    email: ''
+                    email: 'reserva@torneoarena.cl'
                 },
                 categoria: [],
                 poleras: [],
@@ -498,7 +498,7 @@
 
                 for (var i = 0; i < this.categoria_seleccionada; i++) {
                     var atleta = new Object()
-                    atleta.nombre = 'POR DEFINIR'
+                    atleta.nombre = 'WILD CARD'
                     atleta.run = '9.999.999-9'
                     atleta.polera = null
                     atleta.fecha_nacimiento = null
@@ -508,7 +508,7 @@
             limpiar_datos_registro() {
                 this.registro_atleta.nombre_equipo = ''
                 this.registro_atleta.box = ''
-                this.registro_atleta.email = ''
+                this.registro_atleta.email = 'reserva@torneoarena.cl'
                 this.registro_atleta.atletas = []
                 this.registro_atleta.tipo_pago = 0
 
