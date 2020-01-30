@@ -39,7 +39,9 @@ Route::post('/categoria/borrar', 'CategoriaController@borrar')->name('Borrar cat
 //Rutas de atletas
 Route::get('/atletas/obtener', 'AtletaController@index_admin')->name('Listar atletas');
 Route::get('/atletas/categoria/{id}', 'AtletaController@index_categoria')->name('Listar atletas por categoria');
+Route::get('/atleta/{id}', 'AtletaController@index_admin_usuario')->name('Listar atleta');
 Route::post('/atletas/admin/agregar', 'AtletaController@agregar_admin')->name('Agregar atleta');
+Route::post('/atletas/admin/actualizar', 'AtletaController@actualizar_admin')->name('Agregar atleta');
 Route::post('/atletas/usuario/agregar/webpay', 'AtletaController@agregar_usuario_webpay')->name('Agregar atleta webpay');
 Route::post('/atletas/usuario/agregar/transferencia', 'AtletaController@agregar_usuario_transferencia')->name('Agregar atleta transferencia');
 Route::post('/atleta/borrar', 'AtletaController@borrar')->name('Borrar atleta');

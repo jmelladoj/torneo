@@ -20,6 +20,10 @@ class AtletaController extends Controller
         return ['atletas' => Atleta::where('pago', 1)->orWhere('invitado', 1)->orderBy('categoria_id', 'asc')->orderBy('nombre_equipo', 'asc')->orderBy('nombre', 'asc')->get()];
     }
 
+    public function index_admin_usuario($id){
+        return ['atleta' => Atleta::where('id', $id)->first()];
+    }
+
     public function index_categoria($id){
         return ['atletas' => Atleta::where('categoria_id', $id)->orderBy('nombre_equipo', 'asc')->orderBy('nombre', 'asc')->get()];
     }
@@ -82,6 +86,18 @@ class AtletaController extends Controller
                 Mail::to($atleta->correo)->send(new Transferencia($atleta));
             }
         });
+    }
+
+    public function actualizar_admin(Request $request){
+        Atleta::where('id', $request->id)
+              ->update([
+                            'nombre' => $request->nombre,
+                            'correo' => $request->correo,
+                            'nombre_equipo' => $request->nombre_equipo,
+                            'fecha_nacimiento' => $request->fecha_nacimiento,
+                            'box' => $request->box,
+                            'polera_id' => $request->polera_id
+                        ]);
     }
 
     public function agregar_usuario_webpay(Request $request){

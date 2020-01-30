@@ -58,6 +58,7 @@ Vue.directive('rut', rutInputDirective)
 
 //Componentes generales
 Vue.component('titulo-pagina', require('./components/general/titulo.vue').default);
+Vue.component('actualizar-atleta', require('./components/general/actualizar_atleta.vue').default);
 
 //Pagina
 Vue.component('iniciar-sesion', require('./components/login.vue').default);

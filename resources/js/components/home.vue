@@ -81,6 +81,8 @@
         <div class="page-wrapper">
             <b-container fluid>
                 <router-view></router-view>
+
+                <actualizar-atleta></actualizar-atleta>
             </b-container>
         </div>
     </div>

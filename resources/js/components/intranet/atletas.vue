@@ -113,14 +113,21 @@
                         </template>
 
                         <template v-slot:cell(encargado)="data">
-                            <label v-if="data.item.encargado == 1">SÍ</label>
-                            <label v-else>NO</label>
+                            {{ data.item.encargado == 1 ? 'SÍ' : 'NO' }}
+                        </template>
+
+                        <template v-slot:cell(pago)="data">
+                            {{ data.item.pago == 1 ? 'APROBADO' : 'PENDIENTE' }}
+                        </template>
+
+                        <template v-slot:cell(invitado)="data">
+                            {{ data.item.invitado == 1 ? 'SÍ' : 'NO' }}
                         </template>
 
                         <template v-slot:cell(acciones)="row">
-                            <!--<b-button size="xs" variant="warning" title="Actualizar información" @click="abrir_modal_atleta(row.item)">
+                            <b-button size="xs" variant="warning" title="Actualizar información" @click="abrir_modal_actualizar_atleta(row.item.id, row.item.categoria_id)">
                                 <i class="fa fa-pencil"></i>
-                            </b-button>-->
+                            </b-button>
 
                             <b-button v-show="row.item.encargado == 1" size="xs" variant="danger" title="Eliminar registro" @click="borrar(row.item.id)">
                                 <i class="fa fa-trash"></i>
@@ -421,6 +428,8 @@
                             { key: 'correo', label: 'Correo', sortable: true, class: 'text-left' },
                             { key: 'box', label: 'Box', sortable: true, class: 'text-left' },
                             { key: 'talla_polera', label: 'Talla polera', sortable: true, class: 'text-left' },
+                            { key: 'pago', label: 'Pago', sortable: true, class: 'text-center' },
+                            { key: 'invitado', label: 'Invitado', sortable: true, class: 'text-center' },
                             { key: 'acciones', label: 'Acciones', class: 'text-center'}
                         ]
                     } else {
@@ -431,6 +440,8 @@
                             { key: 'correo', label: 'Correo', sortable: true, class: 'text-left' },
                             { key: 'box', label: 'Box', sortable: true, class: 'text-left' },
                             { key: 'talla_polera', label: 'Talla polera', sortable: true, class: 'text-left' },
+                            { key: 'pago', label: 'Pago', sortable: true, class: 'text-center' },
+                            { key: 'invitado', label: 'Invitado', sortable: true, class: 'text-center' },
                             { key: 'acciones', label: 'Acciones', class: 'text-center'}
                         ]
                     }
@@ -443,6 +454,8 @@
                         { key: 'nombre_equipo', label: 'Equipo', sortable: true, class: 'text-left' },
                         { key: 'encargado', label: 'Encargado', sortable: true, class: 'text-left' },
                         { key: 'talla_polera', label: 'Talla polera', sortable: true, class: 'text-left' },
+                        { key: 'pago', label: 'Pago', sortable: true, class: 'text-center' },
+                        { key: 'invitado', label: 'Invitado', sortable: true, class: 'text-center' },
                         { key: 'acciones', label: 'Acciones', class: 'text-center'}
                     ]
                 }
@@ -558,6 +571,9 @@
                         })
                     }
                 })
+            },
+            abrir_modal_actualizar_atleta(id_atleta, id_categoria){
+                Evento.$emit('cargar_modal_atleta', id_atleta, id_categoria, 2);
             }
         },
         mounted() {
@@ -568,6 +584,7 @@
                 this.obtener_registros()
                 this.cargar_campos_tabla()
             })
+
         }
     }
 </script>

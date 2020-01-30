@@ -145,9 +145,22 @@
                             {{ data.index + 1 }}
                         </template>
 
+                        <template v-slot:cell(pago)="data">
+                            {{ data.item.pago == 1 ? 'APROBADO' : 'PENDIENTE' }}
+                        </template>
+
+                        <template v-slot:cell(invitado)="data">
+                            {{ data.item.invitado == 1 ? 'SÍ' : 'NO' }}
+                        </template>
+
                         <template v-slot:cell(encargado)="data">
-                            <label v-if="data.item.encargado == 1">SÍ</label>
-                            <label v-else>NO</label>
+                            {{ data.item.encargado == 1 ? 'SÍ' : 'NO' }}
+                        </template>
+
+                         <template v-slot:cell(acciones)="row">
+                            <b-button size="xs" variant="warning" title="Actualizar información" @click="abrir_modal_actualizar_atleta(row.item.id, row.item.categoria_id)">
+                                <i class="fa fa-pencil"></i>
+                            </b-button>
                         </template>
                     </b-table>
                 </b-card>
@@ -171,7 +184,10 @@
                     { key: 'fecha_nacimiento', label: 'Fecha de nacimiento', sortable: true, class: 'text-left' },
                     { key: 'correo', label: 'Correo', sortable: true, class: 'text-left' },
                     { key: 'box', label: 'Box', sortable: true, class: 'text-left' },
-                    { key: 'talla_polera', label: 'Talla polera', sortable: true, class: 'text-left' }
+                    { key: 'talla_polera', label: 'Talla polera', sortable: true, class: 'text-left' },
+                    { key: 'pago', label: 'Pago', sortable: true, class: 'text-center' },
+                    { key: 'invitado', label: 'Invitado', sortable: true, class: 'text-center' },
+                    { key: 'acciones', label: 'Acciones', class: 'text-center'}
                 ],
                 totalRows: 1,
                 currentPage: 1,
@@ -232,10 +248,17 @@
                 .catch(function (error) {
                     console.log(error);
                 });
+            },
+            abrir_modal_actualizar_atleta(id_atleta, id_categoria){
+                Evento.$emit('cargar_modal_atleta', id_atleta, id_categoria, 1);
             }
         },
         beforeMount() {
             this.obtener_registros()
+
+            Evento.$on('refrescar_escritorio', (id) => {
+                this.obtener_registros()
+            })
         }
     }
 </script>
