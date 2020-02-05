@@ -8,13 +8,13 @@
             </div>
 
             <ul class="nav nav-tabs" role="tablist">
-                <li class="nav-item" v-if="individuales.length > 0">
+                <li class="nav-item">
                 <a class="nav-link active" href="#individual" role="tab" data-toggle="tab">Individual</a>
                 </li>
-                <li class="nav-item" v-if="duplas.length > 0">
+                <li class="nav-item">
                 <a class="nav-link" href="#duplas" role="tab" data-toggle="tab">Duplas</a>
                 </li>
-                <li class="nav-item" v-if="trios.length > 0">
+                <li class="nav-item">
                 <a class="nav-link" href="#trios" role="tab" data-toggle="tab">Tríos</a>
                 </li>
             </ul>
@@ -22,7 +22,12 @@
             <div class="tab-content row justify-content-center">
 
                 <div role="tabpanel" class="col-lg-9 tab-pane fade show active" id="individual">
-                    <div class="row schedule-item" v-for="i in individuales" :key="i.id">
+                    <div class="row schedule-item" v-if="individuales.length == 0">
+                        <div class="col-md-12 text-center">
+                            Inscripciones agotadas
+                        </div>
+                    </div>
+                    <div v-else class="row schedule-item" v-for="i in individuales" :key="i.id" v-show="i.cupos_usados < i.cupos">
                         <div class="col-md-8">
                             <h4 v-text="i.categoria_nombre + ' ' + i.nombre "></h4>
                         </div>
@@ -31,7 +36,12 @@
                 </div>
 
                 <div role="tabpanel" class="col-lg-9  tab-pane fade" id="duplas">
-                    <div class="row schedule-item" v-for="d in duplas" :key="d.id">
+                    <div class="row schedule-item" v-if="duplas.length == 0">
+                        <div class="col-md-12 text-center">
+                            Inscripciones agotadas
+                        </div>
+                    </div>
+                    <div v-else class="row schedule-item" v-for="d in duplas" :key="d.id" v-show="d.cupos_usados < d.cupos">
                         <div class="col-md-8">
                             <h4 v-text="d.categoria_nombre + ' ' + d.nombre "></h4>
                         </div>
@@ -40,7 +50,12 @@
                 </div>
 
                 <div role="tabpanel" class="col-lg-9  tab-pane fade" id="trios">
-                    <div class="row schedule-item" v-for="t in trios" :key="t.id">
+                    <div class="row schedule-item" v-if="trios.length == 0">
+                        <div class="col-md-12 text-center">
+                            Inscripciones agotadas
+                        </div>
+                    </div>
+                    <div v-else class="row schedule-item" v-for="t in trios" :key="t.id" v-show="t.cupos_usados < t.cupos">
                         <div class="col-md-8">
                             <h4 v-text="t.categoria_nombre + ' ' + t.nombre "></h4>
                         </div>
