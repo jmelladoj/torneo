@@ -90,14 +90,16 @@ class AtletaController extends Controller
 
     public function actualizar_admin(Request $request){
         Atleta::where('id', $request->id)
-              ->update([
+              ->update([    
+                            'run' => $request->run,
                             'nombre' => $request->nombre,
                             'correo' => $request->correo,
                             'nombre_equipo' => $request->nombre_equipo,
                             'fecha_nacimiento' => $request->fecha_nacimiento,
                             'box' => $request->box,
-                            'polera_id' => $request->polera_id
-                        ]);
+                            'polera_id' => $request->polera_id,
+                            'invitado' => $request->invitado
+                            ]);
     }
 
     public function agregar_usuario_webpay(Request $request){

@@ -3,6 +3,20 @@
         <b-form>
             <b-row>
                 <b-col xs="12" sm="12" md="6">
+                    <b-form-group label="Run de atleta">
+                        <b-form-input
+                            v-rut:live
+                            v-model="$v.atleta.run.$model"
+                            :state="$v.atleta.run.$dirty ? !$v.atleta.run.$error : null"
+                            aria-describedby="atleta-run"
+                        ></b-form-input>
+
+                        <b-form-invalid-feedback id="atleta-nombre">
+                            Campo de texto, mínimo de 3 caracteres.
+                        </b-form-invalid-feedback>
+                    </b-form-group>
+                </b-col>
+                <b-col xs="12" sm="12" md="6">
                     <b-form-group label="Nombre de atleta">
                         <b-form-input
                             v-model="$v.atleta.nombre.$model"
@@ -83,6 +97,19 @@
                         </b-form-invalid-feedback>
                     </b-form-group>
                 </b-col>
+                <b-col xs="12" sm="12" md="6">
+                    <b-form-group label="¿Es invitado?">
+                        <b-form-select
+                            v-model="$v.atleta.invitado.$model"
+                            aria-describedby="atleta-invitado"
+                            :options="opciones_atleta">
+                        </b-form-select>
+
+                        <b-form-invalid-feedback id="atleta-invitado">
+                            Debes de seleccionar una opción.
+                        </b-form-invalid-feedback>
+                    </b-form-group>
+                </b-col>
             </b-row>
         </b-form>
 
@@ -112,15 +139,24 @@
                     nombre_equipo: '',
                     fecha_nacimiento: '',
                     box: '',
-                    polera_id: null
+                    polera_id: null,
+                    invitado: null
                 },
                 modal_atleta: {
                     titulo: ''
-                }
+                },
+                opciones_atleta: [
+                    { value: null, text: 'Selecciona una opción ...' },
+                    { value: 0, text: 'NO' },
+                    { value: 1, text: 'SÍ' }
+                ],
             }
         },
         validations:{
             atleta: {
+                run: {
+                    required
+                },
                 nombre:{
                     required,
                     minLength: minLength(3)
@@ -147,6 +183,9 @@
                     required: requiredIf(function () {
                         return this.categoria.limitancia_edad == 1 ? true : false
                     }),
+                },
+                invitado: {
+                    required
                 }
             }
         },
@@ -178,6 +217,7 @@
                     me.atleta.nombre_equipo = response.data.atleta.nombre_equipo
                     me.atleta.fecha_nacimiento = response.data.atleta.fecha_nacimiento
                     me.atleta.polera_id = response.data.atleta.polera_id
+                    me.atleta.invitado = response.data.atleta.invitado
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -202,6 +242,7 @@
                 this.atleta.fecha_nacimiento = null
                 this.atleta.box = null
                 this.atleta.polera_id = null
+                this.atleta.invitado = null
             },
             abrir_modal_atleta(){
                 let me = this
@@ -230,12 +271,14 @@
 
                 axios.post('/atletas/admin/actualizar',{
                     'id': me.atleta.id,
+                    'run': me.atleta.run,
                     'nombre': me.atleta.nombre,
                     'correo': me.atleta.correo,
                     'nombre_equipo': me.atleta.nombre_equipo,
                     'fecha_nacimiento': me.atleta.fecha_nacimiento,
                     'box': me.atleta.box,
-                    'polera_id': me.atleta.polera_id
+                    'polera_id': me.atleta.polera_id,
+                    'invitado': me.atleta.invitado
                 }).then(function (response) {
                     if(me.ubicacion == 1){
                         Evento.$emit('refrescar_escritorio')
