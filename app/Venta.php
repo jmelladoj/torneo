@@ -8,7 +8,7 @@ class Venta extends Model
 {
     //
     protected $guarded = ['id'];
-    protected $appends = ['run_atleta', 'nombre_atleta', 'correo_atleta', 'categoria_atleta'];
+    protected $appends = ['run_atleta', 'nombre_atleta', 'correo_atleta', 'categoria_atleta', 'invitado'];
 
 
     public function getRunAtletaAttribute(){
@@ -25,6 +25,10 @@ class Venta extends Model
 
     public function getCategoriaAtletaAttribute(){
         return $this->atleta_id != null ? $this->atleta->categoria->categoria_nombre . ' ' . $this->atleta->categoria->nombre : 'SIN CATEGORÍA';
+    }
+
+    public function getInvitadoAttribute(){
+        return $this->atleta_id != null ? $this->atleta->invitado : 0;
     }
 
     public function atleta(){

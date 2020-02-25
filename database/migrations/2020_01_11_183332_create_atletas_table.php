@@ -22,6 +22,7 @@ class CreateAtletasTable extends Migration
             $table->smallInteger('encargado')->default(0);
             $table->string('fecha_nacimiento')->nullable()->default('SIN FECHA');
             $table->string('box')->default('SIN BOX');
+            $table->integer('sexo')->nullable()->default(0);
 
             $table->unsignedBigInteger('polera_id')->nullable()->default(null);
             $table->foreign('polera_id')->references('id')->on('poleras');

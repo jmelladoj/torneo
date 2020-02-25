@@ -54,8 +54,7 @@
                         </template>
 
                         <template v-slot:cell(distribucion)="data">
-                            <label>H :</label>
-                            <label>M: </label>
+                            <label class="text-success text-bold">H : {{ data.item.cantidad_poleras_hombre }} </label> - <label class="text-info text-bold">M: {{ data.item.cantidad_poleras_mujer }}</label>
                         </template>
 
                         <template v-slot:cell(acciones)="row">

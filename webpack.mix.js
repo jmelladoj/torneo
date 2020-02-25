@@ -12,7 +12,7 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js').version()
-   .sass('resources/sass/app.scss', 'public/css');
+   .sass('resources/sass/app.scss', 'public/css').version();
 
 mix.scripts([
    'public/assets/node_modules/jquery/jquery-3.2.1.min.js',
@@ -34,7 +34,7 @@ mix.styles([
     'public/pagina/lib/venobox/venobox.css',
     'public/pagina/lib/owlcarousel/assets/owl.carousel.min.css',
     'public/pagina/css/style.css',
- ], 'public/css/pagina.css')
+ ], 'public/css/pagina.css').version()
  .scripts([
     'public/pagina/lib/jquery/jquery-migrate.min.js',
     'public/pagina/lib/bootstrap/js/bootstrap.bundle.min.js',

@@ -150,7 +150,11 @@
                         </template>
 
                         <template v-slot:cell(acciones)="row">
-                            <b-button v-if="row.item.estado == 0" size="xs" variant="success" title="Confirmar inscripción" @click="confirmarOpendiente(row.item.id, 1)">
+                            <b-button v-if="row.item.estado == 0" size="xs" variant="success" title="Confirmar notificando a atleta" @click="confirmarOpendiente(row.item.id, 1, 1)">
+                                <i class="fa fa-bell"></i>
+                            </b-button>
+
+                            <b-button v-if="row.item.estado == 0" size="xs" variant="success" title="Confirmar inscripción sin notificar" @click="confirmarOpendiente(row.item.id, 1, 0)">
                                 <i class="fa fa-check"></i>
                             </b-button>
 
@@ -162,7 +166,7 @@
                                 <i class="fa fa-trash-o"></i>
                             </b-button>
 
-                            <b-button v-if="row.item.estado == 1" size="xs" variant="danger" title="Marcar como pendiente de pago" @click="confirmarOpendiente(row.item.id, 0)">
+                            <b-button v-if="row.item.estado == 1" size="xs" variant="danger" title="Marcar como pendiente de pago" @click="confirmarOpendiente(row.item.id, 0, 0)">
                                 <i class="fa fa-remove"></i>
                             </b-button>
                         </template>
@@ -201,13 +205,13 @@
         },
         computed: {
             recaudado(){
-                return this.items.reduce((total, v) => total += parseInt(v.monto_pago), 0)
+                return this.items.reduce((total, v) => total += v.estado == 1 && v.invitado == 0 ? parseInt(v.monto_pago) : 0, 0)
             },
             webpay(){
-                return this.items.reduce((total, v) => total += v.token ? parseInt(v.monto_pago) : 0, 0)
+                return this.items.reduce((total, v) => total += v.token && v.estado == 1 && v.invitado == 0  ? parseInt(v.monto_pago) : 0, 0)
             },
             transferencia(){
-                return this.items.reduce((total, v) => total += !v.token ? parseInt(v.monto_pago) : 0, 0)
+                return this.items.reduce((total, v) => total += !v.token && v.estado == 1 && v.invitado == 0  ? parseInt(v.monto_pago) : 0, 0)
             },
             cantidad_webpay(){
                 return this.items.reduce((total, v) => total += v.token ? 1 : 0, 0)
@@ -238,9 +242,11 @@
                     console.log(error);
                 });
             },
-            confirmarOpendiente(id, accion) {
+            confirmarOpendiente(id, accion, envia_mail) {
+                var mensaje_uno = envia_mail == 1 ? '¿Deseas confirmar la venta notificando al atelta?' : '¿Deseas confirmar la venta sin notificar?'
+
                 swal.fire({
-                    title: accion == 1 ? '¿Deseas confirmar la venta?' : '¿Deseas marcar la venta como pendiente de pago?',
+                    title: accion == 1 ? mensaje_uno : '¿Deseas marcar la venta como pendiente de pago?',
                     text: "¡No podrás revertir esto!",
                     icon: 'warning',
                     showCancelButton: true,
@@ -252,7 +258,8 @@
                         let me = this
                         axios.post('/venta/confirmar/pendiente',{
                             'id': id,
-                            'accion': accion
+                            'accion': accion,
+                            'envia_mail': envia_mail
                         }).then(function (response) {
                             me.listar_ventas();
                             me.$store.commit('msg_success', accion == 1 ? 'Venta confirmada exitosamente.' : 'Venta marcada como pendiente de pago')

@@ -200,19 +200,19 @@
         },
         computed: {
             pagaron() {
-                return this.atletas.filter(i => i.pago == 1).length
+                return this.atletas.filter(i => i.pago == 1  && i.invitado == 0).length
             },
             invitados() {
-                return this.atletas.filter(i => i.invitado == 1).length
+                return this.atletas.filter(i => i.invitado == 1 && i.pago == 0).length
             },
             recaudado(){
-                return this.ventas.reduce((total, v) => total += parseInt(v.monto_pago), 0)
+                return this.ventas.reduce((total, v) => total += v.estado == 1 && v.invitado == 0 ? parseInt(v.monto_pago) : 0, 0)
             },
             webpay(){
-                return this.ventas.reduce((total, v) => total += v.token ? parseInt(v.monto_pago) : 0, 0)
+                return this.ventas.reduce((total, v) => total += v.token && v.estado == 1 && v.invitado == 0  ? parseInt(v.monto_pago) : 0, 0)
             },
             transferencia(){
-                return this.ventas.reduce((total, v) => total += !v.token ? parseInt(v.monto_pago) : 0, 0)
+                return this.ventas.reduce((total, v) => total += !v.token && v.estado == 1 && v.invitado == 0  ? parseInt(v.monto_pago) : 0, 0)
             },
             sortOptions() {
                 return this.atletas.filter(f => f.sortable).map(f => {

@@ -38,7 +38,7 @@ class VentaController extends Controller
                 $atleta->save();
             }
 
-            if($request->accion == 1){
+            if($request->envia_mail == 1){
                 Mail::to($atleta->correo)->send(new Confirmacion($atleta));
             }
 
