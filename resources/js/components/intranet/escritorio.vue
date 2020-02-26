@@ -23,10 +23,23 @@
                                 <div class="d-flex no-block align-items-center">
                                     <div>
                                         <h4><i class="fa fa-users"></i></h4>
-                                        <h6 class="text-muted"><b>Pagaron</b></h6>
+                                        <h6 class="text-muted"><b>De pago normal</b></h6>
                                     </div>
                                     <div class="ml-auto">
-                                        <h4 class="counter text-primary">{{ pagaron }}</h4>
+                                        <h4 class="counter text-primary">{{ pagaron_normal }}</h4>
+                                    </div>
+                                </div>
+                            </b-col>
+                    </b-card>
+                    <b-card class="mt-0 mb-0">
+                            <b-col cols="12">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h4><i class="fa fa-users"></i></h4>
+                                        <h6 class="text-muted"><b>De pago invitado</b></h6>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <h4 class="counter text-primary">{{ pagaron_invitado }}</h4>
                                     </div>
                                 </div>
                             </b-col>
@@ -199,8 +212,11 @@
             }
         },
         computed: {
-            pagaron() {
+            pagaron_normal() {
                 return this.atletas.filter(i => i.pago == 1  && i.invitado == 0).length
+            },
+            pagaron_invitado() {
+                return this.atletas.filter(i => i.pago == 1  && i.invitado == 1).length
             },
             invitados() {
                 return this.atletas.filter(i => i.invitado == 1 && i.pago == 0).length
