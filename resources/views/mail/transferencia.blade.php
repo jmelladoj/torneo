@@ -32,7 +32,7 @@
     </p>
 
     <p style="font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px">
-        <b>DE PARTE DE LA ORGANIZACIÓN, GRACIAS POR QUERER FORMAR PARTE DE TORNEO ARENA 2019</b><br><br><br><br>
+        <b>DE PARTE DE LA ORGANIZACIÓN, GRACIAS POR QUERER FORMAR PARTE DE TORNEO ARENA 2020</b><br><br><br><br>
         <img src="{{ asset('img/logo-arena.png') }}" alt="" height="150" width="auto">
     </p>
 </body>

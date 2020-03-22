@@ -185,7 +185,7 @@
 
                 <p class="text-justify">
                     <b>Recuerda que en esta opción debes enviar el comprobante de transferencia a <a href="javascript:void(0)">pagos@torneoarena.cl</a>, indicando correctamente en el asunto tu nombre (la de la dupla o trío) y categoría</b>). <br><br>
-                    El valor a transferir según la categoría es de: <b>INDIVIDUAL $35.000</b>. <b>DUPLAS $70.000</b> y <b>TRÍOS $105.000</b>, y los datos de transferencia son:
+                    El valor a transferir según la categoría es de: <b>INDIVIDUAL $40.000</b>. <b>DUPLAS $80.000</b> y <b>TRÍOS $120.000</b>, y los datos de transferencia son:
                 </p>
 
                 <p class="text-center">
